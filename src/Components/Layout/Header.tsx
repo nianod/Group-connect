@@ -27,16 +27,16 @@ const Header = () => {
             <img src={headerItems.image} alt="Arnold" />
             <Link
              to="/"
-             className="text-white"
+             className="text-white font-bold text-xl"
             >
               {headerItems.title}
             </Link>
         </div>
         <div>
           <button onClick={() => dispatch(toggleTheme())}
-            className="text-white"
+            className="text-white text-[10px] hover:bg-gray-700 rounded p-1 cursor-pointer "
           >
-            {theme === "dark" ? <Sun /> : <Moon />}
+            {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
           </button>
        
         </div>
