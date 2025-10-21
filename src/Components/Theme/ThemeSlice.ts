@@ -4,7 +4,7 @@ const initialSlide = {
   theme: "dark"
 }
 
-const themeSlice = createSlice({
+const ThemeSlice = createSlice({
   name: 'theme'
   initialSlide,
   reducers {
@@ -14,6 +14,6 @@ const themeSlice = createSlice({
   }
 })
 
-const {toggleTheme} = themeSlice.actions
+const {toggleTheme} = ThemeSlice.actions
 
 export default ThemeSlice
