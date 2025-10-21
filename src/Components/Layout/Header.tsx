@@ -17,6 +17,12 @@ const Header = () => {
               {headerItems.title}
             </Link>
         </div>
+        <div>
+          <button>
+            
+            {/* {theme === "dark" ? <Sun /> : <Moon />} */}
+          </button>
+        </div>
     </div>
   )
 }
