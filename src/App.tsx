@@ -1,5 +1,6 @@
 import Home from "./Pages/Home"
 import Layout from "./Components/Layout/Layout"
+import Connect from "./Components/Connect"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 const App = () => {
   return (
@@ -8,6 +9,7 @@ const App = () => {
         <Routes>
            <Route element={<Layout />}>
               <Route path="/" element={<Home/>} />
+              <Route path="connect" element={<Connect/>} />
            </Route>
         </Routes>
       </Router>
