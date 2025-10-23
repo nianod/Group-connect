@@ -11,9 +11,9 @@ const Landing = () => {
           <p className="text-xl font-semibold text-gray-600 dark:text-gray-300">
             Find your perfect study group, learn smarter, not harder.
           </p>
-          <h11 className="text-4xl md:text-5xl font-[helvetica] font-semibold leading-tight">
+          <h1 className="m-5 text-4xl md:text-5xl font-[helvetica] font-semibold leading-tight">
             Connect with students who share your passion. <br /> Team up. Study better.
-          </h11>
+          </h1>
 
           <Link
             to="/register"
