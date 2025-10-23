@@ -8,7 +8,7 @@ import { useEffect } from "react"
 const Header = () => {
 
 
-  const theme = useSelector((state) => state.theme.theme)
+  const theme = useSelector((state: any) => state.theme.theme)
   const dispatch = useDispatch()
 
 
@@ -29,18 +29,14 @@ const Header = () => {
         </Link>
       </div>
       <div className="flex gap-5">
-        <div>
-          <button className="flex gap-3 justify-center items-center rounded p-[5px] cursor-pointer font-semibold text-white bg-gray-900 dark:text-black dark:bg-white">
-            Get started <ArrowRight />
-          </button>
-        </div>
-        <Link
-          to="/connect"
+ 
+        <button
+          
           onClick={() => dispatch(toggleTheme())}
           className="text-[10px] hover:bg-gray-700 rounded p-1 cursor-pointer text-black dark:text-white"
         >
           {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-        </Link>
+        </button>
       </div>
     </div>
   );
