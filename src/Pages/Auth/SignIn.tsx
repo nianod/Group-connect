@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-interface Signup2Props {
+interface SignIn2Props {
   heading?: string;
   logo: {
     url: string;
@@ -14,7 +14,7 @@ interface Signup2Props {
   signupUrl?: string;
 }
 
-const Signup2 = ({ heading = "Signup" }: Signup2Props) => {
+const signIn = ({ heading = "SignIn" }: SignIn2Props) => {
   return (
     <section className="bg-white dark:bg-[rgb(31,31,59)] h-screen transition-colors duration-500">
       <div className="flex h-full items-center justify-center">
@@ -46,28 +46,17 @@ const Signup2 = ({ heading = "Signup" }: Signup2Props) => {
                 required
               />
             </div>
-
-            <div className="flex w-full flex-col gap-2">
-              <label className="text-sm font-medium">Confirm Password</label>
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                className="border border-gray-600 bg-gray-800 text-gray-200 dark:border-gray-300 dark:bg-white dark:text-gray-900 rounded px-3 py-[6px] text-sm w-full transition-colors duration-500"
-                required
-              />
-            </div>
-
             <button
               type="submit"
               className="w-full bg-white text-black dark:bg-gray-900 dark:text-white cursor-pointer rounded-md py-2 font-semibold text-sm hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors duration-500"
             >
-              Create Account
+              Sign in
             </button>
           </div>
 
           <div className="text-muted-foreground flex justify-center gap-1 text-sm text-gray-600 dark:text-gray-400">
             <p>
-              Already a user? <Link className="text-black dark:text-white" to="/">Login</Link>
+              New User? <Link className="text-black dark:text-white" to="/register">Sign up</Link>
             </p>
           </div>
         </div>
@@ -76,4 +65,4 @@ const Signup2 = ({ heading = "Signup" }: Signup2Props) => {
   );
 };
 
-export default Signup2;
+export default signIn;
