@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Signup2Props {
   heading?: string;
@@ -8,13 +8,17 @@ interface Signup2Props {
     alt: string;
     title?: string;
   };
-  buttonText?: string;
-  googleText?: string;
-  signupText?: string;
-  signupUrl?: string;
+ 
 }
 
 const Signup2 = ({ heading = "Signup" }: Signup2Props) => {
+
+    const navigate = useNavigate()
+    const submit = (e: React.FormEvent) => {
+        e.preventDefault()
+        navigate('/connect')
+    }
+
   return (
     <section className="bg-white dark:bg-[rgb(31,31,59)] h-screen transition-colors duration-500">
       <div className="flex h-full items-center justify-center">
@@ -58,6 +62,7 @@ const Signup2 = ({ heading = "Signup" }: Signup2Props) => {
             </div>
 
             <button
+              onClick={submit}
               type="submit"
               className="w-full bg-white text-black dark:bg-gray-900 dark:text-white cursor-pointer rounded-md py-2 font-semibold text-sm hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors duration-500"
             >
@@ -67,7 +72,7 @@ const Signup2 = ({ heading = "Signup" }: Signup2Props) => {
 
           <div className="text-muted-foreground flex justify-center gap-1 text-sm text-gray-600 dark:text-gray-400">
             <p>
-              Already a user? <Link className="text-black dark:text-white" to="/">Login</Link>
+              Already a user? <Link className="text-black dark:text-white" to="/login">Login</Link>
             </p>
           </div>
         </div>

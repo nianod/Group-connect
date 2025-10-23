@@ -1,7 +1,8 @@
 import { useState } from "react";
 
 const Connect = () => {
-  const [selectedFields, setSelectedFields] = useState<string[]>([]);
+  const [selectedFields, setSelectedFields] = useState<string[]>([])
+  const [proceed, setProceed] = useState<boolean>(false)
 
 const availableFields = [
   "Software Development",
@@ -48,17 +49,23 @@ const availableFields = [
 
 
  
-  const handleSelect = (field: string) => {
-  
-    setSelectedFields((prev) =>
-      prev.includes(field)
-        ? prev.filter((item) => item !== field) 
-        : [...prev, field] 
-    );
-  };
-  if(selectedFields.length > 5) {
-    alert('you cannot select more than 5 fields')
-  }
+const handleSelect = (field: string) => {
+  setSelectedFields((prev) => {
+    if (prev.includes(field)) {
+      setProceed(true)
+      return prev.filter((item) => item !== field);
+    } else if (prev.length >= 5) {
+     
+      alert("You can only select up to 5 fields.");
+      return prev;
+    } else {
+      setProceed(true)
+      return [...prev, field];
+      
+    }
+  });
+};
+
   return (
     <div className="p-4 mt-10">
       <h1 className="font-bold mb-2 text-lg text-center">
@@ -81,12 +88,16 @@ const availableFields = [
           </button>
         ))}
       </div>
-
-      {selectedFields.length > 0 && (
+        {proceed && (
+          <button className="m-auto mt-5 flex gap-3 w-fit rounded p-2 cursor-pointer font-semibold text-white bg-gray-900 dark:text-black dark:bg-white hover:bg-gray-800 transition dark:hover:bg-gray-300">
+            Proceed
+          </button>
+        )}
+      {/* {selectedFields.length > 0 && (
         <div className="mt-4 text-sm">
           <strong>Selected:</strong> {selectedFields.join(", ")}
         </div>
-      )}
+      )} */}
     </div>
   );
 };
