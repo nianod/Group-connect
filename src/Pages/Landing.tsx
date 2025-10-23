@@ -1,7 +1,44 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-
+import { useState, useEffect } from "react";
 const Landing = () => {
+  const movingText = [
+    "Build By students for students"
+  ];
+  
+  
+    const [text, setText] = useState("");
+    const [index, setIndex] = useState(0);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [speed] = useState(150);
+  
+    useEffect(() => {
+      const currentString = movingText[index];
+      let timeout: any
+  
+      if (!isDeleting) {
+        if (text.length < currentString.length) {
+          timeout = setTimeout(() => {
+            setText(currentString.substring(0, text.length + 1));
+          }, speed);
+        } else {
+          timeout = setTimeout(() => {
+            setIsDeleting(true);
+          }, 500);
+        }
+      } else {
+        if (text.length > 0) {
+          timeout = setTimeout(() => {
+            setText(currentString.substring(0, text.length - 1));
+          }, speed / 2);
+        } else {
+          setIsDeleting(false);
+          setIndex((prev) => (prev + 1) % movingText.length);
+        }
+      }
+  
+      return () => clearTimeout(timeout);
+    }, [text, isDeleting, index, speed]);
   return (
     <div className="pt-20 text-black dark:text-white">
       <div className="flex flex-col md:flex-row justify-between items-center gap-10">
@@ -37,7 +74,7 @@ const Landing = () => {
       </div>
       <div className="flex flex-wrap justify-center gap-8 mt-16">
         
-        <div className="flex flex-col items-center text-center bg-white dark:bg-blue-900 shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 rounded-2xl p-5 w-64">
+        <div className="flex flex-col text-white items-center text-center bg-gray-900 dark:bg-blue-900 shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 rounded-2xl p-5 w-64">
           <p className="text-lg font-semibold mb-3">
             🧑‍🤝‍🧑 Find study partners by interest
           </p>
@@ -49,7 +86,7 @@ const Landing = () => {
         </div>
 
    
-        <div className="flex flex-col items-center text-center bg-white dark:bg-gray-900 shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 rounded-2xl p-5 w-64">
+        <div className="flex flex-col text-white items-center text-center bg-blue-900 dark:bg-gray-900 shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 rounded-2xl p-5 w-64">
           <p className="text-lg font-semibold mb-3">📅 Plan meetups easily</p>
           <img
             className="w-56 h-36 object-cover rounded-xl"
@@ -59,7 +96,7 @@ const Landing = () => {
         </div>
 
    
-        <div className="flex flex-col items-center text-center bg-white dark:bg-blue-900 shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 rounded-2xl p-5 w-64">
+        <div className="flex flex-col text-white items-center text-center bg-gray-900 dark:bg-blue-900 shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 rounded-2xl p-5 w-64">
           <p className="text-lg font-semibold mb-3">💬 Real-time group chats</p>
           <img
             className="w-56 h-36 object-cover rounded-xl"
@@ -69,7 +106,7 @@ const Landing = () => {
         </div>
 
          
-        <div className="flex flex-col items-center text-center bg-white dark:bg-gray-900 shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 rounded-2xl p-5 w-64">
+        <div className="flex flex-col text-white items-center text-center bg-blue-900 dark:bg-gray-900 shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 rounded-2xl p-5 w-64">
           <p className="text-lg font-semibold mb-3">
             🧠 Collaborate on topics you love
           </p>
@@ -79,6 +116,12 @@ const Landing = () => {
             alt="group"
           />
         </div>
+      </div>
+      <div className="mt-10 bg-blue-600 w-1/2 m-auto">
+        <h2 className="text-center text-xl">
+          {text}
+          <span> | </span>
+        </h2>
       </div>
     </div>
   );
