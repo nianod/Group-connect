@@ -1,11 +1,13 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+ 
+
 const Landing = () => {
   const movingText = [
     "Build By students, for students"
   ];
-  
   
     const [text, setText] = useState("");
     const [index, setIndex] = useState(0);
@@ -13,7 +15,7 @@ const Landing = () => {
     const [speed] = useState(150);
   
     useEffect(() => {
-      const currentString = movingText[index];
+      const currentString = movingText[index]
       let timeout: any
   
       if (!isDeleting) {
@@ -39,9 +41,18 @@ const Landing = () => {
   
       return () => clearTimeout(timeout);
     }, [text, isDeleting, index, speed]);
+
+    const navigate = useNavigate()
+    const start = () => {
+      navigate("/register")
+    }
+
   return (
     <div className="pt-20 text-black dark:text-white">
-      <div data-aos="zoom-out" className="flex flex-col md:flex-row justify-between items-center gap-10">
+      <div
+        
+        className="flex flex-col md:flex-row justify-between items-center gap-10"
+      >
         <div className="flex flex-col max-w-xl space-y-4 p-3">
           <p className="text-xl font-semibold text-gray-600 dark:text-gray-300">
             Find your perfect study group, learn smarter, not harder.
@@ -72,8 +83,11 @@ const Landing = () => {
           />
         </div>
       </div>
-      <div className="flex flex-wrap justify-center gap-8 mt-16">
-        
+      <div 
+          data-aos="fade-down"
+     data-aos-easing="linear"
+     data-aos-duration="1500"
+          className="flex flex-wrap justify-center gap-8 mt-16">
         <div className="flex flex-col text-white items-center text-center bg-gray-900 dark:bg-blue-900 shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 rounded-2xl p-5 w-64">
           <p className="text-lg font-semibold mb-3">
             🧑‍🤝‍🧑 Find study partners by interest
@@ -85,7 +99,6 @@ const Landing = () => {
           />
         </div>
 
-   
         <div className="flex flex-col text-white items-center text-center bg-blue-900 dark:bg-gray-900 shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 rounded-2xl p-5 w-64">
           <p className="text-lg font-semibold mb-3">📅 Plan meetups easily</p>
           <img
@@ -95,7 +108,6 @@ const Landing = () => {
           />
         </div>
 
-   
         <div className="flex flex-col text-white items-center text-center bg-gray-900 dark:bg-blue-900 shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 rounded-2xl p-5 w-64">
           <p className="text-lg font-semibold mb-3">💬 Real-time group chats</p>
           <img
@@ -105,7 +117,6 @@ const Landing = () => {
           />
         </div>
 
-         
         <div className="flex flex-col text-white items-center text-center bg-blue-900 dark:bg-gray-900 shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 rounded-2xl p-5 w-64">
           <p className="text-lg font-semibold mb-3">
             🧠 Collaborate on topics you love
@@ -123,10 +134,67 @@ const Landing = () => {
           <span> | </span>
         </h2>
       </div>
-      <div>
-        <p>Testimonial & Statistics</p>
-        
+      <div className="mt-20 text-center">
+        <h2 className="text-2xl font-semibold items-center justify-center gap-1 flex mb-8">
+          {" "}
+          <Star /> Testimonials & Statistics <Star />
+        </h2>
+
+        <div 
+        data-aos="flip-up"
+        className="flex flex-wrap justify-center gap-10 text-lg font-medium">
+          <div className="flex flex-col items-center bg-gray-800 dark:bg-black shadow-md hover:shadow-lg rounded-xl px-8 py-6 transition-all duration-300">
+            <p className="text-3xl font-bold text-amber-600">50+</p>
+            <span className="text-white dark:text-gray-300">
+              Universities
+            </span>
+          </div>
+
+          <div className="flex flex-col items-center bg-gray-800 dark:bg-black shadow-md hover:shadow-lg rounded-xl px-8 py-6 transition-all duration-300">
+            <p className="text-3xl font-bold text-amber-600">1000+</p>
+            <span className="text-white dark:text-gray-300">
+              Users per campus
+            </span>
+          </div>
+
+          <div className="flex flex-col items-center bg-gray-800 dark:bg-black shadow-md hover:shadow-lg rounded-xl px-8 py-6 transition-all duration-300">
+            <p className="text-3xl font-bold text-amber-600">50,000+</p>
+            <span className="text-white dark:text-gray-300">
+              Across all campuses
+            </span>
+          </div>
+
+          <div className="flex flex-col items-center bg-gray-800 dark:bg-black shadow-md hover:shadow-lg rounded-xl px-8 py-6 transition-all duration-300">
+            <p className="text-3xl font-bold text-amber-600">100+</p>
+            <span className="text-white dark:text-gray-300">
+              Groups formed this semester
+            </span>
+          </div>
+        </div>
+
+        <div 
+        data-aos="zoom-in"
+        className="mt-12 max-w-2xl mx-auto bg-gray-100 dark:bg-gray-800 rounded-xl p-6 shadow-sm italic">
+          “I met my current study group here, we’ve improved our grades and made
+          learning fun again!”
+          <br />
+          <span className="text-amber-600 font-semibold not-italic">
+            — Amina, Computer Science Student
+          </span>
+        </div>
       </div>
+      {/* <Link 
+        to="/register"
+        className="flex p-1 m-auto mt-12 px-6 py-3 rounded text-lg font-bold bg-green-500 w-fit justify-center "
+      >
+          Get started
+      </Link> */}
+            <button
+        onClick={start}
+        className="flex p-1 m-auto mt-12 px-6 py-3 rounded text-lg font-bold bg-green-500 w-fit justify-center "
+      >
+          Get started
+      </button>
     </div>
   );
 };

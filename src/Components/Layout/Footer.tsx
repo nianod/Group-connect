@@ -48,7 +48,7 @@ const Footer = () => {
           <p className="text-sm">
             Email:{" "}
             <a href="mailto:support@groupconnect.com" className="hover:text-blue-400">
-              support@groupconnect.com
+              arnoldkk422@gmail.com
             </a>
           </p>
         </div>
