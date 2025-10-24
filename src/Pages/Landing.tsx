@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 const Landing = () => {
   const movingText = [
-    "Build By students for students"
+    "Build By students, for students"
   ];
   
   
@@ -41,7 +41,7 @@ const Landing = () => {
     }, [text, isDeleting, index, speed]);
   return (
     <div className="pt-20 text-black dark:text-white">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-10">
+      <div data-aos="zoom-out" className="flex flex-col md:flex-row justify-between items-center gap-10">
         <div className="flex flex-col max-w-xl space-y-4 p-3">
           <p className="text-xl font-semibold text-gray-600 dark:text-gray-300">
             Find your perfect study group, learn smarter, not harder.
@@ -117,11 +117,15 @@ const Landing = () => {
           />
         </div>
       </div>
-      <div className="mt-10 bg-blue-600 w-1/2 m-auto">
-        <h2 className="text-center text-xl">
+      <div className="mt-10 bg-[#050594] w-1/2 m-auto p-3">
+        <h2 className="text-white text-center text-2xl font-bold">
           {text}
           <span> | </span>
         </h2>
+      </div>
+      <div>
+        <p>Testimonial & Statistics</p>
+        
       </div>
     </div>
   );

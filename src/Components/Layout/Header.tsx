@@ -21,7 +21,7 @@ const Header = () => {
         image: "/logoipsum-357.svg"
     }
   return (
-    <div className="fixed top-0 z-30 w-full border- border-gray-600 flex justify-between items-center p-2 bg-[#d4d4d4] dark:bg-gray-900 text-black dark:text-white">
+    <div className="fixed top-0 z-30 w-full  border-gray-600 flex justify-between items-center p-2 bg-[#d4d4d4] dark:bg-gray-900 text-black dark:text-white">
       <div className="flex items-center gap-2 p">
         <img src={headerItems.image} alt="Arnold" />
         <Link to="/" className="font-bold text-xl text-black dark:text-white">
