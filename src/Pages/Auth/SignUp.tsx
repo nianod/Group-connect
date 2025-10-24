@@ -18,7 +18,7 @@ const Signup2 = ({ heading = "Signup" }: Signup2Props) => {
   const [email, setEmail] = useState<string>("")
   const [password1, setPassword1] = useState<string>("")
   const [password2, setPassword2] = useState<string>("")
-  const [error, setError] = useState<boolean>(false)
+  const [error, setError] = useState<string>("")
 
     const navigate = useNavigate()
 
@@ -26,10 +26,24 @@ const Signup2 = ({ heading = "Signup" }: Signup2Props) => {
     const submit = (e: React.FormEvent) => {
         e.preventDefault()
         navigate('/connect')
+        setLoading(true)
 
         if(password1 !== password2) {
-
+          setError('Passwords do not match')
+          setLoading(false)
+          return
         }
+
+        if(password1.length < 6 || password1.length < 6) {
+          setError('Password too short')
+          setLoading(false)
+          return
+        } else {
+          //Register Logic
+          setLoading(false)
+          setError("")
+        }
+
     }
 
   return (
