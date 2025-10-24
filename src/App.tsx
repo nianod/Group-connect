@@ -6,6 +6,7 @@ import SignIn from "./Pages/Auth/SignIn"
 import "aos/dist/aos.css"
 import AOS from "aos"
 import { useEffect } from "react"
+import Home from "./UI/Home"
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
               <Route path="connect" element={<Connect/>} />
               <Route path="register" element={<SignUp/>} />
               <Route path="login" element={<SignIn/>} />
+              <Route path="home" element={<Home/>} />
            </Route>
         </Routes>
       </Router>

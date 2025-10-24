@@ -17,6 +17,7 @@ const Signup2 = ({ heading = "Signup" }: Signup2Props) => {
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
+  
   const navigate = useNavigate();
 
   const submit = (e: React.FormEvent) => {
@@ -35,8 +36,8 @@ const Signup2 = ({ heading = "Signup" }: Signup2Props) => {
       return;
     } else {
 
-    setError("");
-    setLoading(false);
+    setError("")
+    setLoading(false)
     navigate("/connect")
     }
   };

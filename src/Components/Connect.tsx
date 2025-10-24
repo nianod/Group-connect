@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Connect = () => {
   const [selectedFields, setSelectedFields] = useState<string[]>([])
   const [proceed, setProceed] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
 const availableFields = [
   "Software Development",
@@ -47,7 +49,11 @@ const availableFields = [
   "Tourism & Hospitality"
 ];
 
+const gotohome = () => {
+  const navigate = useNavigate()
 
+  navigate("/home")
+}
  
 const handleSelect = (field: string) => {
   setSelectedFields((prev) => {
@@ -89,8 +95,10 @@ const handleSelect = (field: string) => {
         ))}
       </div>
         {proceed && (
-          <button className="m-auto mt-5 flex gap-3 w-fit rounded p-2 cursor-pointer font-semibold text-white bg-gray-900 dark:text-black dark:bg-white hover:bg-gray-800 transition dark:hover:bg-gray-300">
-            Proceed
+          <button className={`m-auto mt-5 flex gap-3 w-fit rounded p-2 cursor-pointer font-semibold text-white bg-gray-900        dark:text-black dark:bg-white hover:bg-gray-800 transition dark:hover:bg-gray-300 ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+            onClick={gotohome}
+          >
+            {loading ? "Saving..." : "Save & Proceed"}
           </button>
         )}
       {/* {selectedFields.length > 0 && (
