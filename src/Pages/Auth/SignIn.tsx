@@ -15,16 +15,15 @@ const SignIn = ({ heading = "Welcome Back" }: SignIn2Props) => {
   const navigate = useNavigate();
 
   const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
+    e.preventDefault()
+    setLoading(true)
+    setError("")
 
     try {
-      // Simulate API call
+      //  API call
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Your actual login API call would go here
-      // const response = await loginApi(email, password);
+     
       
       navigate("/home");
     } catch (err) {
@@ -40,16 +39,12 @@ const SignIn = ({ heading = "Welcome Back" }: SignIn2Props) => {
       
         <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-blue-600 to-purple-700 dark:from-gray-800 dark:to-purple-800 text-white p-12 flex-col justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-              <span className="text-blue-600 font-bold text-lg">S</span>
-            </div>
-            <span className="text-xl font-bold">Group Connect</span>
           </div>
 
           <div className="max-w-md">
             <h2 className="text-4xl font-bold mb-6">Welcome back!</h2>
             <p className="text-blue-100 text-lg opacity-90">
-              Sign in to continue your journey and access your personalized dashboard with all your saved preferences.
+              Sign in to continue your Study and access your personalized dashboard with all your saved preferences.
             </p>
           </div>
 
