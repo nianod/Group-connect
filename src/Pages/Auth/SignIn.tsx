@@ -2,16 +2,7 @@ import { Link } from "react-router-dom";
 
 interface SignIn2Props {
   heading?: string;
-  logo: {
-    url: string;
-    src: string;
-    alt: string;
-    title?: string;
-  };
-  buttonText?: string;
-  googleText?: string;
-  signupText?: string;
-  signupUrl?: string;
+ 
 }
 
 const signIn = ({ heading = "SignIn" }: SignIn2Props) => {

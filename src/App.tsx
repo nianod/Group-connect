@@ -4,7 +4,7 @@ import Connect from "./Components/Connect"
 import SignUp from "./Pages/Auth/SignUp"
 import SignIn from "./Pages/Auth/SignIn"
 import "aos/dist/aos.css"
-import AOS from "aos"
+import AOS from 'aos'
 import { useEffect } from "react"
 import Home from "./UI/Home"
 
