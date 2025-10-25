@@ -259,7 +259,7 @@ const Landing = () => {
             </h2>
             <p className="text-blue-100 text-xl mb-8 max-w-2xl mx-auto">
               Join thousands of students who are already collaborating, learning, and succeeding together.
-            </p>
+            </p>     
             <button
               onClick={start}
               className="bg-white cursor-pointer text-gray-900 hover:bg-gray-100 font-bold py-4 px-12 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg text-lg"
