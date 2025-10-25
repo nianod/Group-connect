@@ -6,6 +6,8 @@ const Connect = () => {
   const [proceed, setProceed] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
+    const navigate = useNavigate()
+
 const availableFields = [
   "Software Development",
   "Web Development",
@@ -50,8 +52,8 @@ const availableFields = [
 ];
 
 const gotohome = () => {
-  const navigate = useNavigate()
 
+  setLoading(true )
   navigate("/home")
 }
  
@@ -73,7 +75,7 @@ const handleSelect = (field: string) => {
 };
 
   return (
-    <div className="p-4 mt-10">
+    <div className="mt-16 mb-24">
       <h1 className="font-bold mb-2 text-lg text-center">
         select at least 5 files you're interested in
       </h1>

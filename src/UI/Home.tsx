@@ -1,7 +1,9 @@
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className="mt-10">
+        <p>Welcome to Group Connect</p>
+    </div>
   )
 }
 
