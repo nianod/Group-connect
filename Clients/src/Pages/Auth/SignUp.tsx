@@ -39,9 +39,16 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
       })
       await new Promise(resolve => setTimeout(resolve, 1500));
       
- 
-      console.log("your toke is", response.data.token)
-      navigate("/connect");
+      if(response.data) {
+        console.log("backend data is:", response.data)
+        console.log("your toke is", response.data.token)
+        navigate("/connect");
+      } else {
+        setError('error from backend token access')
+        
+      }
+      
+
     } catch (err: any) {
       setError(err.response?.data?.error || "Signup failed. Please try again.");
     } finally {

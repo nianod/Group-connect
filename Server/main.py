@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from Auth.Services.authService import hash_password
-
+from pydantic import BaseModel
+ 
 
 app = FastAPI()
 
@@ -16,6 +17,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
+
+class UserCredentials(BaseModel):
+    email: str
+    password: str
+
 try:
     from Database.Users.db import users_collection
     print("Database import successful")
@@ -27,6 +33,7 @@ try:
     print("Auth import successful")
 except ImportError as e:
     print(f" Auth import failed: {e}")
+
 
 @app.get('/')
 async def landing():
@@ -42,14 +49,24 @@ async def test():
     
 
 @app.post('/signup')
-async def Register(user: dict):
+async def Register(user: UserCredentials):
     try:
-        existing_user = users_collection.find_one({'email': user["email"]})
+        existing_user = users_collection.find_one({'email': user.email})
         if existing_user:
             return {"error": "User already exists"}
         
-        users_collection.insert_one(user)
-        token = access_token({"email": user["email"]})
+        # hashed_password = hash_password(user["password"])
+        hashed_password = hash_password(user.password)
+
+
+        
+        users_collection.insert_one({
+            # "email": user["email"],
+            "email": user.email,
+            "password": hashed_password
+        })
+        # token = access_token({"email": user["email"]})
+        token = access_token({"email": user.email})
         return {"message": "User registered successfully", "token": token}
     except Exception as e:
         return {"error": f"Registration failed: {str(e)}"}
