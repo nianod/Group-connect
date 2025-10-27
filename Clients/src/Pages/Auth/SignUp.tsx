@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaGithub, FaGoogle } from "react-icons/fa";
+import axios from "axios";
+
 interface Signup2Props {
   heading?: string;
 }
@@ -31,13 +33,17 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
       }
 
       //  API call
+      const response = await axios.post('http://127.0.0.1:8000/signup', {
+        email,
+        password: password1
+      })
       await new Promise(resolve => setTimeout(resolve, 1500));
       
  
-      
+      console.log("your toke is", response.data.token)
       navigate("/connect");
-    } catch (err) {
-      setError("Signup failed. Please try again.");
+    } catch (err: any) {
+      setError(err.response?.data?.error || "Signup failed. Please try again.");
     } finally {
       setLoading(false);
     }
