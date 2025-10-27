@@ -1,7 +1,21 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from Auth.Services.authService import hash_password
+
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:5173"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 try:
     from Database.Users.db import users_collection
     print("Database import successful")
@@ -25,8 +39,9 @@ async def test():
         return {"Message": f"Successfully connected to MongoDB ({count})"}
     except Exception as e:
         return {"error": f"MongoDB connection failed: {str(e)}"}
+    
 
-@app.post('/Signup')
+@app.post('/signup')
 async def Register(user: dict):
     try:
         existing_user = users_collection.find_one({'email': user["email"]})
