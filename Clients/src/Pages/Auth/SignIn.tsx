@@ -20,6 +20,9 @@ const SignIn = ({ heading = "Welcome Back" }: SignIn2Props) => {
     setLoading(true)
     setError("")
 
+    console.log(typeof email)
+    console.log(typeof password)
+    
     try{
       //  API call
       await new Promise(resolve => setTimeout(resolve, 1500));
@@ -34,6 +37,7 @@ const SignIn = ({ heading = "Welcome Back" }: SignIn2Props) => {
         navigate("/home");
       }else {
         setError(response.data.error || "Login Failed")
+        console.error(error)
       }
     } catch (err) {
       setError("Invalid email or password. Please try again.");
