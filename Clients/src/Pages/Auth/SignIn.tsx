@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 interface SignIn2Props {
   heading?: string;
@@ -19,13 +20,21 @@ const SignIn = ({ heading = "Welcome Back" }: SignIn2Props) => {
     setLoading(true)
     setError("")
 
-    try {
+    try{
       //  API call
       await new Promise(resolve => setTimeout(resolve, 1500));
+
+      const response = await axios.post('http://127.0.0.1:8000/signin', {
+        email,
+        password
+      })
       
-     
-      
-      navigate("/home");
+      if(response.data.token) {
+        localStorage.setItem('Tooken', response.data.token)
+        navigate("/home");
+      }else {
+        setError(response.data.error || "Login Failed")
+      }
     } catch (err) {
       setError("Invalid email or password. Please try again.");
     } finally {

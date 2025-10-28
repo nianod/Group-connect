@@ -2,6 +2,7 @@ import { ArrowRight, Star, Users, Calendar, MessageSquare, Brain } from "lucide-
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Carousel from "../Components/Layout/Carousel";
 
 const Landing = () => {
   const movingText = [
@@ -87,9 +88,18 @@ const Landing = () => {
   ];
 
   return (
-    <div className="pt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 min-h-screen">
+    <div className="pt-10 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 min-h-screen">
      
       <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="flex justify-end">
+          <Link
+            className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-md px-5 font-semibold text-black hove:from-blue-700 hover:to-purple-800"
+            to="/register"
+          >
+            Get started
+          </Link>
+          
+        </div>
         <div className="flex flex-col lg:flex-row justify-between items-center gap-12">
          
           <div className="flex flex-col max-w-2xl space-y-6">
@@ -238,16 +248,7 @@ const Landing = () => {
 
            
           <div className="max-w-2xl mx-auto">
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
-              <p className="text-xl text-gray-700 dark:text-gray-300 italic mb-4 text-center">
-                "I met my current study group here, we've improved our grades and made learning fun again! The platform made it so easy to find people who were as serious about academics as I am."
-              </p>
-              <div className="text-center">
-                <span className="bg-gradient-to-r from-blue-600 to-purple-700 bg-clip-text text-transparent font-semibold text-lg">
-                  — Amina, Computer Science Student
-                </span>
-              </div>
-            </div>
+              <Carousel />
           </div>
         </div>
 
