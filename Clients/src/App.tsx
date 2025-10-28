@@ -22,10 +22,10 @@ const App = () => {
         <Routes>
            <Route element={<Layout />}>
               <Route path="/" element={<Landing/>} />
-              <Route path="connect" element={<Connect/>} />
-              <Route path="register" element={<SignUp/>} />
-              <Route path="login" element={<SignIn/>} />
-              <Route path="home" element={<Home/>} />
+              <Route path="/connect" element={<Connect/>} />
+              <Route path="/register" element={<SignUp/>} />
+              <Route path="/login" element={<SignIn/>} />
+              <Route path="/home" element={<Home/>} />
            </Route>
         </Routes>
       </Router>

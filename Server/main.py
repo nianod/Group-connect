@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from Auth.Services.authService import hash_password
+from Auth.Services.authService import verify_password
 from pydantic import BaseModel
  
 
@@ -47,7 +48,25 @@ async def test():
     except Exception as e:
         return {"error": f"MongoDB connection failed: {str(e)}"}
     
+# Login Route
+@app.post('/signin')
+async def Login():
+    try:
+        existing_user = users_collection.find_obe({"email": user.email})
 
+        if not existing_user:
+            return {"Message": "User not found"}
+
+        if not verify_password(user.password, existing_user['password']):
+            return {"Message": "User not found"}
+        
+        token = access_token({"email": user.email})
+        return {"Message": "Login successful", "token": token}
+    except Exception as e:
+        return {"erro": f"Login Failed {str(e)}"}
+
+
+# Register Route
 @app.post('/signup')
 async def Register(user: UserCredentials):
     try:
