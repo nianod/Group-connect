@@ -32,6 +32,8 @@ except ImportError as e:
 try:
     from Auth.Services.authService import access_token
     print("Auth import successful")
+    print(f"access toke type: {(access_token)}")
+    print(f'Access token is:  {access_token}')
 except ImportError as e:
     print(f" Auth import failed: {e}")
 
@@ -50,9 +52,9 @@ async def test():
     
 # Login Route
 @app.post('/signin')
-async def Login():
+async def Login(user: UserCredentials):
     try:
-        existing_user = users_collection.find_obe({"email": user.email})
+        existing_user = users_collection.find_one({"email": user.email})
 
         if not existing_user:
             return {"Message": "User not found"}
@@ -63,7 +65,7 @@ async def Login():
         token = access_token({"email": user.email})
         return {"Message": "Login successful", "token": token}
     except Exception as e:
-        return {"erro": f"Login Failed {str(e)}"}
+        return {"error": f"Login Failed {str(e)}"}
 
 
 # Register Route
