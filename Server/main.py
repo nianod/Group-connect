@@ -3,7 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from Auth.Services.authService import hash_password
 from Auth.Services.authService import verify_password
 from pydantic import BaseModel
- 
+from fastapi.responses import RedirectResponse
+
 
 app = FastAPI()
 

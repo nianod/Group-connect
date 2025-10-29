@@ -65,7 +65,7 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
           <div className="max-w-md">
             <h2 className="text-4xl font-bold mb-6">Join thousands of users worldwide</h2>
             <p className="text-blue-100 text-lg opacity-90">
-               Find your ideal Study Partiners who macth your knowledge and energy 
+               Find your ideal Study Partiners who match your knowledge and energy 
             </p>
           </div>
 
@@ -104,6 +104,7 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
               <button 
                 type="button"
                 className="flex cursor-pointer items-center justify-center gap-2 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                onClick={() => window.location.href = "http://127.0.0.1:8000/auth/google"}
               >
  
                 <FaGoogle />
