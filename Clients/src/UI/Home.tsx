@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Calendar, Users, Clock, MessageSquare, ChevronRight, Search, Filter, Bell, Repeat } from 'lucide-react';
-import { quickActions, upcomingSessions, pastGroups,  } from '../Json/dummy';
+import { Calendar, Users, Clock, MessageSquare, ChevronRight, Search, Filter, Repeat } from 'lucide-react';
+import { upcomingSessions, pastGroups,  } from '../Json/dummy';
 import MiniHeader from '../Components/Layout/MiniHeader';
 import QuickActions from '../Components/Layout/QuickActions';
 
@@ -79,7 +77,7 @@ const Dashboard = () => {
                     </div>
                     
                     <div className="flex gap-2">
-                      <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-700 text-white rounded-xl hover:from-blue-700 hover:to-purple-800 transition-all duration-200 transform hover:scale-105">
+                      <button className="cursor-pointer px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-700 text-white rounded-xl hover:from-blue-700 hover:to-purple-800 transition-all duration-200 transform hover:scale-105">
                         Join Session
                       </button>
                       <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition-colors">
