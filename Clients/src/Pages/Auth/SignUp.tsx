@@ -12,7 +12,8 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("")
   const [password2, setPassword2] = useState("")
-  const [error, setError] = useState("");
+  const [error, setError] = useState("")
+  const [name, setName] = useState<string>("")
 
   const navigate = useNavigate();
 
@@ -35,7 +36,8 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
       //  API call
       const response = await axios.post('http://127.0.0.1:8000/signup', {
         email,
-        password: password1
+        password: password1,
+        name
       })
       await new Promise(resolve => setTimeout(resolve, 1500));
       
@@ -143,6 +145,19 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    User Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your name"
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
 

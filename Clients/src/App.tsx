@@ -9,6 +9,7 @@ import { useEffect } from "react"
 import Home from "./UI/Home"
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import Profile from "./UI/Profile"
 const App = () => {
   useEffect(() => {
     AOS.init({
@@ -26,6 +27,7 @@ const App = () => {
               <Route path="/register" element={<SignUp/>} />
               <Route path="/login" element={<SignIn/>} />
               <Route path="/home" element={<Home/>} />
+              <Route path="/profile" element={<Profile/>} />
            </Route>
         </Routes>
       </Router>

@@ -4,6 +4,7 @@ from Auth.Services.authService import hash_password
 from Auth.Services.authService import verify_password
 from pydantic import BaseModel
 from fastapi.responses import RedirectResponse
+from  Auth.Routes import user
 
 
 app = FastAPI()
@@ -23,6 +24,7 @@ app.add_middleware(
 class UserCredentials(BaseModel):
     email: str
     password: str
+    name: str
 
 try:
     from Database.Users.db import users_collection
@@ -81,14 +83,19 @@ async def Register(user: UserCredentials):
         hashed_password = hash_password(user.password)
 
 
-        
+        #Insert data into mongo
         users_collection.insert_one({
-            # "email": user["email"],
             "email": user.email,
-            "password": hashed_password
+            "password": hashed_password,
+            "name": user.name
         })
         # token = access_token({"email": user["email"]})
         token = access_token({"email": user.email})
         return {"message": "User registered successfully", "token": token}
     except Exception as e:
         return {"error": f"Registration failed: {str(e)}"}
+    
+
+
+
+app.include_router(user.router, prefix="/user")

@@ -15,7 +15,7 @@ const Menu = ({ userMenu, setUserMenu }: MenuProps) => {
 
   const menuItems = [
     {
-      icon: User,
+      icon: User,     
       label: "Profile",
       description: "View your profile",
       href: "/profile",
