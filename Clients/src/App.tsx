@@ -7,8 +7,7 @@ import "aos/dist/aos.css"
 import AOS from 'aos'
 import { useEffect } from "react"
 import Home from "./UI/Home"
-import ProfilePage from "./Hooks/UseFetchUsers"
-
+ 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import Profile from "./UI/Profile"
 const App = () => {
@@ -29,8 +28,7 @@ const App = () => {
               <Route path="/login" element={<SignIn/>} />
               <Route path="/home" element={<Home/>} />
               <Route path="/profile" element={<Profile/>} />
-               <Route path="/profilep" element={<ProfilePage/>} />
-           </Route>
+            </Route>
         </Routes>
       </Router>
     </div>

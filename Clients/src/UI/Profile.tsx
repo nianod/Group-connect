@@ -1,29 +1,26 @@
-import React, { useState } from 'react';
-import { Mail, Edit3,Camera, Save, X, Trash2, Plus, Calendar } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Mail, Edit3, Camera, Save, X, Trash2, Plus, Calendar } from 'lucide-react';
 import md5 from "md5"
 import Logout from '../Components/Layout/Logout';
+import { useFetchUser } from '../Hooks/UseFetchUsers';
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [user, setUser] = useState({
-    name: "Alex Johnson",
-    email: "alex.johnson@university.edu",
-    role: "Student",
-    university: "University of California",
-    bio: "Computer Science major passionate about algorithms and machine learning. Always looking for study partners to collaborate with!",
-    avatar: null
-  });
+  const { user, loading, error, setUser } = useFetchUser();
+  const [editedUser, setEditedUser] = useState<User | null>(null);
 
- 
+  // Initialize editedUser when user data is loaded
+  useEffect(() => {
+    if (user) {
+      setEditedUser(user);
+    }
+  }, [user]);
 
-const getGravatar = (email: string) => {
-  const hash = md5(email.trim().toLowerCase());
-  return `https://www.gravatar.com/avatar/${hash}?d=identicon&s=200`;
-};
-
-
-  const [editedUser, setEditedUser] = useState(user);
+  const getGravatar = (email: string) => {
+    const hash = md5(email.trim().toLowerCase());
+    return `https://www.gravatar.com/avatar/${hash}?d=identicon&s=200`;
+  };
 
   const groupStats = [
     { icon: Plus, label: "Groups Created", value: "3", color: "from-blue-600 to-purple-700" },
@@ -31,7 +28,9 @@ const getGravatar = (email: string) => {
   ];
 
   const handleSave = () => {
-    setUser(editedUser);
+    if (editedUser) {
+      setUser(editedUser);
+    }
     setIsEditing(false);
   };
 
@@ -42,7 +41,7 @@ const getGravatar = (email: string) => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
+    if (file && editedUser) {
       const reader = new FileReader();
       reader.onload = (e) => {
         setEditedUser({ ...editedUser, avatar: e.target?.result as string });
@@ -51,7 +50,29 @@ const getGravatar = (email: string) => {
     }
   };
 
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen mt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 py-8">
+        <div className="max-w-4xl mx-auto px-6 flex justify-center items-center h-64">
+          <div className="text-lg text-gray-600 dark:text-gray-300">Loading profile...</div>
+        </div>
+      </div>
+    );
+  }
 
+  // Show error state
+  if (error || !user) {
+    return (
+      <div className="min-h-screen mt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 py-8">
+        <div className="max-w-4xl mx-auto px-6 flex justify-center items-center h-64">
+          <div className="text-lg text-red-600 dark:text-red-400">
+            {error || "User not found"}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen mt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 py-8">
@@ -96,12 +117,11 @@ const getGravatar = (email: string) => {
                 {/* Avatar Section */}
                 <div className="relative">
                   <div className="w-24 h-24 bg-gradient-to-r from-blue-600 to-purple-700 rounded-full flex items-center justify-center text-white text-2xl font-bold">                        
-                      <img 
-                        src={user.avatar || getGravatar(user.email)} 
-                        alt={user.name}
-                        className="w-full h-full rounded-full object-cover"
-                      />
-                     
+                    <img 
+                      src={user.avatar || getGravatar(user.email)} 
+                      alt={user.name}
+                      className="w-full h-full rounded-full object-cover"
+                    />
                   </div>
                   {isEditing && (
                     <label className="absolute bottom-0 right-0 bg-white dark:bg-gray-700 p-2 rounded-full shadow-lg cursor-pointer hover:scale-110 transition-transform duration-200">
@@ -126,8 +146,8 @@ const getGravatar = (email: string) => {
                         </label>
                         <input
                           type="text"
-                          value={editedUser.name}
-                          onChange={(e) => setEditedUser({ ...editedUser, name: e.target.value })}
+                          value={editedUser?.name || ''}
+                          onChange={(e) => setEditedUser(editedUser ? { ...editedUser, name: e.target.value } : null)}
                           className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                       </div>
@@ -137,8 +157,8 @@ const getGravatar = (email: string) => {
                         </label>
                         <input
                           type="email"
-                          value={editedUser.email}
-                          onChange={(e) => setEditedUser({ ...editedUser, email: e.target.value })}
+                          value={editedUser?.email || ''}
+                          onChange={(e) => setEditedUser(editedUser ? { ...editedUser, email: e.target.value } : null)}
                           className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                       </div>
@@ -147,8 +167,8 @@ const getGravatar = (email: string) => {
                           Bio
                         </label>
                         <textarea
-                          value={editedUser.bio}
-                          onChange={(e) => setEditedUser({ ...editedUser, bio: e.target.value })}
+                          value={editedUser?.bio || ''}
+                          onChange={(e) => setEditedUser(editedUser ? { ...editedUser, bio: e.target.value } : null)}
                           rows={3}
                           className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                         />
@@ -165,7 +185,7 @@ const getGravatar = (email: string) => {
                           <span>{user.email}</span>
                         </div>
                         <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                          {user.bio}
+                          {user.bio || "No bio provided"}
                         </p>
                       </div>
                     </div>
@@ -234,9 +254,7 @@ const getGravatar = (email: string) => {
         </div>
       </div>
 
-      
       <Logout showDeleteConfirm={showDeleteConfirm} setShowDeleteConfirm={setShowDeleteConfirm}/>
-
     </div>
   );
 };
