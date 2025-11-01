@@ -26,6 +26,10 @@ class UserCredentials(BaseModel):
     password: str
     name: str
 
+class LoginCredentials(BaseModel):
+    email: str
+    password: str
+
 try:
     from Database.Users.db import users_collection
     print("Database import successful")
@@ -55,7 +59,7 @@ async def test():
     
 # Login Route
 @app.post('/signin')
-async def Login(user: UserCredentials):
+async def Login(user: LoginCredentials):
     try:
         existing_user = users_collection.find_one({"email": user.email})
 

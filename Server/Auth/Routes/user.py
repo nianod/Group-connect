@@ -1,26 +1,20 @@
-from fastapi import APIRouter, HTTPException, Header
-from Database.Users.db import users_collection
-from Auth.Services.authService import access_token
+from fastapi import Depends, HTTPException, status, APIRouter
+from fastapi.security import OAuth2PasswordBearer
+from jose import jwt, JWTError
 
-router = APIRouter()
+router = APIRouter(prefix="/user")
 
-@router.get("/me")
-async def get_current_user(authorization: str = Header(...)):
-    """
-    Fetch the current user's details based on the Bearer token
-    """
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+SECRET_KEY = "your_secret_key"
+ALGORITHM = "HS256"
+
+@router.get("/profile")
+def get_profile(token: str = Depends(oauth2_scheme)):
     try:
-        token = authorization.split(" ")[1]  # Extract token from "Bearer <token>"
-        payload = access_token.verify(token)  # adjust based on your token verification
-        email = payload.get("email")
-
-        if not email:
-            raise HTTPException(status_code=401, detail="Invalid token")
-
-        user = users_collection.find_one({"email": email}, {"password": 0})  # exclude password
-        if not user:
-            raise HTTPException(status_code=404, detail="User not found")
-
-        return user
-    except Exception as e:
-        raise HTTPException(status_code=401, detail=str(e))
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("email")
+        if email is None:
+            raise HTTPException(status_code=400, detail="Invalid token payload")
+        return {"user": {"name": "Arnold", "email": email}}
+    except JWTError:
+        raise HTTPException(status_code=400, detail="Invalid token")

@@ -46,3 +46,11 @@ def access_token(data: dict, expires_delta: timedelta = timedelta(hours=1)):
     token = jwt.encode(to_encode, JWT_SECRET, algorithm)
     return token
 
+def decode_token(token: str):
+    try:
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[algorithm])
+        return payload
+    except jwt.ExpiredSignatureError:
+        raise Exception("Token has expired")
+    except jwt.InvalidTokenError:
+        raise Exception("Invalid token")

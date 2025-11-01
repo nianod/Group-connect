@@ -33,7 +33,7 @@ const SignIn = ({ heading = "Welcome Back" }: SignIn2Props) => {
       })
       
       if(response.data.token) {
-        localStorage.setItem('Tooken', response.data.token)
+        localStorage.setItem('token', response.data.token)
         navigate("/home");
       }else {
         setError(response.data.error || "Login Failed")
