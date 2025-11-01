@@ -4,32 +4,50 @@ import axios from "axios";
 interface User {
   name: string;
   email: string;
-  role: string;
-  bio: string;
-  avatar: string | null;
 }
 
 const ProfilePage = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("/api/user/123"); // replace with actual user ID
-        setUser(res.data);
+        // ✅ get the token from localStorage (assuming you saved it during login)
+        const token = localStorage.getItem("token");
+        console.log("Token is=", token)
+
+        if (!token) {
+          console.error("No token found. Please log in again.");
+          return;
+        }
+
+        // ✅ send request with token as query param
+        const res = await axios.get(`http://127.0.0.1:8000/user/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        setUser(res.data.user);
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching profile:", err);
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchUser();
   }, []);
 
-  if (!user) return <p>Loading...</p>;
+  if (loading) return <p>Loading profile...</p>;
+  if (!user) return <p>No user found.</p>;
 
   return (
-    <div>
-      <h1>{user.name}</h1>
-      <p>{user.email}</p>
+    <div className="p-4 mt-30">
+      <h2>Hello </h2>
+      <h1 className="text-xl font-semibold">{user.name}</h1>
+      <p className="text-gray-600">{user.email}</p>
     </div>
   );
 };
