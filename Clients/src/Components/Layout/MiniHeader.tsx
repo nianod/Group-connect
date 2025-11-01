@@ -2,16 +2,18 @@ import { Bell } from "lucide-react";
 import { getGreeting } from "../../Utilities/greeting";
 import { useState } from "react";
 import Menu from "./Menu";
+import { useFetchUser } from "../../Hooks/UseFetchUsers";
 
 const MiniHeader = () => {
   const [userMenu, setUserMenu] = useState<boolean>(false);
   const greeting = getGreeting();
+  const {user} = useFetchUser()
 
-  const [user] = useState({
-    name: "Alex Johnson",
+  // const [user] = useState({
+  //   name: "Alex Johnson",
 
-    university: "University of California",
-  });
+  //   university: "University of California",
+  // });
 
   return (
     <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 relative z-50">
@@ -20,7 +22,7 @@ const MiniHeader = () => {
           <div className="flex items-center gap-4">
             <div>
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                {greeting} {user.name}!
+                {greeting} {user?.name}!
               </h1>
             </div>
           </div>
@@ -33,7 +35,7 @@ const MiniHeader = () => {
               className="w-10 h-10 cursor-pointer bg-gradient-to-r from-blue-600 to-purple-700 rounded-full flex items-center justify-center relative z-50"
             >
               <span className="text-white font-bold text-lg">
-                {user.name.charAt(0)}
+                {user?.name.charAt(0)}
               </span>
             </button>
           </div>
