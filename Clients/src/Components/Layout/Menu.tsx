@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { User, LogOut, ChevronRight } from "lucide-react"
 import { useFetchUser } from "../../Hooks/UseFetchUsers";
+import { useNavigate } from "react-router-dom";
 
 interface MenuProps {
   userMenu: boolean;
@@ -9,6 +10,7 @@ interface MenuProps {
 
 const Menu = ({ userMenu, setUserMenu }: MenuProps) => {
   const {user} = useFetchUser()
+  const navigate = useNavigate()
 
   const menuItems = [
     {
@@ -21,8 +23,7 @@ const Menu = ({ userMenu, setUserMenu }: MenuProps) => {
   ];
 
   const handleLogout = () => {
-    console.log("Logging out...");
-    setUserMenu(false);
+    navigate('/')
   };
 
   if (!userMenu) return null;
