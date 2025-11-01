@@ -2,7 +2,7 @@ from fastapi import Depends, HTTPException, status, APIRouter
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 
-router = APIRouter(prefix="/user")
+router = APIRouter(tags=["user"])
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 SECRET_KEY = "your_secret_key"
