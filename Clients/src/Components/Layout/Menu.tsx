@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { User, LogOut, ChevronRight } from "lucide-react"
+import { useFetchUser } from "../../Hooks/UseFetchUsers";
+import { useNavigate } from "react-router-dom";
 
 interface MenuProps {
   userMenu: boolean;
@@ -7,11 +9,8 @@ interface MenuProps {
 }
 
 const Menu = ({ userMenu, setUserMenu }: MenuProps) => {
-  const user = {
-    name: "Alex Johnson",
-    email: "alex.johnson@university.edu",
-    role: "Student",
-  };
+  const {user} = useFetchUser()
+  const navigate = useNavigate()
 
   const menuItems = [
     {
@@ -24,8 +23,7 @@ const Menu = ({ userMenu, setUserMenu }: MenuProps) => {
   ];
 
   const handleLogout = () => {
-    console.log("Logging out...");
-    setUserMenu(false);
+    navigate('/')
   };
 
   if (!userMenu) return null;
@@ -43,7 +41,7 @@ const Menu = ({ userMenu, setUserMenu }: MenuProps) => {
             <div className="flex items-center gap-3 mb-2">
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-gray-900 dark:text-white truncate">
-                  {user.name}
+                  {user?.name}
                 </p>
               </div>
             </div>

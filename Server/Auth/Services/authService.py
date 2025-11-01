@@ -40,7 +40,7 @@ def hash_password(password: str) -> str:
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
 
-def access_token(data: dict, expires_delta: timedelta = timedelta(hours=1)):
+def access_token(data: dict, expires_delta: timedelta = timedelta(hours=9)):
     to_encode = data.copy()
     to_encode.update({"exp": datetime.utcnow() + expires_delta})
     token = jwt.encode(to_encode, JWT_SECRET, algorithm)
