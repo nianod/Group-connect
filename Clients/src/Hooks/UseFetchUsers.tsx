@@ -34,6 +34,7 @@ export const useFetchUser = () => {
         });
 
         setUser(res.data.user);
+        console.log("your data is.", res.data.user)
       } catch (err: any) {
         console.error("Error fetching profile:", err);
         setError("Failed to fetch profile");
