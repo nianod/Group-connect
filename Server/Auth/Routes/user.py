@@ -3,6 +3,7 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 import os
 from dotenv import load_dotenv
+from Database.Users.db import users_collection
 
 load_dotenv()
 
@@ -19,6 +20,10 @@ def get_profile(token: str = Depends(oauth2_scheme)):
         email: str = payload.get("email")
         if email is None:
             raise HTTPException(status_code=400, detail="Invalid token payload")
-        return {"user": {"name": "Arnold", "email": email}}
+        user = users_collection.find_one({"email": email})
+
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        return {"user": {"name": user["name"], "email": user["email"]}}
     except JWTError:
         raise HTTPException(status_code=400, detail="Invalid token")
