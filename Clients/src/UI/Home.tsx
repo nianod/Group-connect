@@ -2,9 +2,17 @@ import { Calendar, Users, Clock, MessageSquare, ChevronRight, Search, Filter, Re
 import { upcomingSessions, pastGroups,  } from '../Json/dummy';
 import MiniHeader from '../Components/Layout/MiniHeader';
 import QuickActions from '../Components/Layout/QuickActions';
+import { useState } from 'react';
+import CreateGroup from '../Components/CreateGroup';
 
 
 const Dashboard = () => {
+
+  const [post, setPost] = useState<boolean>(false)
+
+  const handleCreateGroup = () => {
+    setPost(true)
+  }
 
 
   return (
@@ -14,7 +22,7 @@ const Dashboard = () => {
     
       <div className="max-w-7xl mx-auto px-6 py-8">
                 
-      <QuickActions />
+      <QuickActions onCreateGroup={handleCreateGroup}/>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
@@ -164,6 +172,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      <CreateGroup post={post} setPost={setPost}/>
     </div>
   );
 };
