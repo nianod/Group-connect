@@ -30,6 +30,7 @@ JWT_SECRET = os.getenv("JWT_SECRET_KEY")
 if JWT_SECRET is None:
     raise Exception('JWT SECRET environment not set')
 
+ 
 algorithm="HS256"
 
 def hash_password(password: str) -> str:
