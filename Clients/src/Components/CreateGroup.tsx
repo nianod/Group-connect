@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Users, MapPin, Clock, Calendar } from 'lucide-react';
+import axios from 'axios';
 
 type postProps = {
     post: boolean;
@@ -19,6 +20,9 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
     meetingDate: ''
   });
 
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string>("")
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -27,11 +31,34 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setError("")
     // form submission  
+
+      const dataToSend = {
+    ...formData,
+    maxMembers: Number(formData.maxMembers)
+    }
+
+    try{
+      const response = await axios.post("http://127.0.0.1:8000/groups/create", dataToSend)
+      console.log("data  is", response.data)
+      alert("Bravooo")
+    } catch(err: any) {
+      setError("Error creating group")
+      console.log(err.response.data)
+
+    } finally {
+      setLoading(false)
+    }
+
+    
     console.log('Group created:', formData);
-    setPost(false)
+    
   }
 
   const skillLevels = [
@@ -237,13 +264,42 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
                   />  
                 </div>
               </div>
-
+                  {error && (
+                    <span className='text-sm text-center text-red-600'>{error}</span>
+                  )}
               <div className="sticky bottom-0 bg-white dark:bg-gray-800 pt-4 pb-6 border-t border-gray-200 dark:border-gray-700">
                 <button
+                  disabled={loading}
                   type="submit"
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-700 text-white py-4 rounded-xl hover:from-blue-700 hover:to-purple-800 transition-all duration-200 transform hover:scale-105 font-semibold text-lg"
                 >
-                  Create Study Group
+                  {loading ? (
+                    <div className="flex items-center justify-center gap-2">
+                    <svg
+                      className="animate-spin h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Creating Account...
+                  </div>
+                ) : (
+                  "Create Group"
+                  )}
                 </button>
               </div>
             </form>
