@@ -1,42 +1,7 @@
 import type { UpcomingSession, PastGroup } from "../Types/group";
 import { Plus, Users, Calendar, BookOpen } from "lucide-react";
 
-export const upcomingSessions: UpcomingSession[] = [
-  {
-    id: "1",
-    name: "Advanced Calculus Review",
-    subject: "Mathematics",
-    date: "Today",
-    time: "6:00 PM",
-    duration: "2 hours",
-    members: 4,
-    maxMembers: 6,
-    skillLevel: "Advanced",
-  },
-  {
-    id: "2",
-    name: "Organic Chemistry Study",
-    subject: "Chemistry",
-    date: "Tomorrow",
-    time: "4:00 PM",
-    duration: "1.5 hours",
-    members: 3,
-    maxMembers: 5,
-    skillLevel: "Intermediate",
-  },
-  {
-    id: "3",
-    name: "Algorithms Deep Dive",
-    subject: "Computer Science",
-    date: "Dec 18",
-    time: "3:00 PM",
-    duration: "2 hours",
-    members: 5,
-    maxMembers: 8,
-    skillLevel: "Advanced",
-  },
-];
-
+ 
 export const pastGroups: PastGroup[] = [
   {
     id: "1",

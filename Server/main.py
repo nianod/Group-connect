@@ -5,6 +5,7 @@ from Auth.Services.authService import verify_password
 from pydantic import BaseModel
 from fastapi.responses import RedirectResponse
 from Routes import user
+from Routes.send import router as send_router  # assuming 'router' is exported from send.py
 from Routes.group import router as group_router
 
 
@@ -105,3 +106,4 @@ async def Register(user: UserCredentials):
 
 app.include_router(user.router, prefix="/user")
 app.include_router(group_router)
+app.include_router(send_router)

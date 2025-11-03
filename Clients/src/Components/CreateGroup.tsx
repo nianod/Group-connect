@@ -13,7 +13,7 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
     subject: '',
     description: '',
     maxMembers: '',
-    meetingFrequency: 'Only Once',
+    meetingFrequency: 'Only Once', 
     skillLevel: 'beginner',
     meetingTime: '',
     location: '',
