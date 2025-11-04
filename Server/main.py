@@ -5,7 +5,7 @@ from Auth.Services.authService import verify_password
 from pydantic import BaseModel
 from fastapi.responses import RedirectResponse
 from Routes import user
-from Routes.send import router as send_router  # assuming 'router' is exported from send.py
+from Routes.send import router as send_router  
 from Routes.group import router as group_router
 
 

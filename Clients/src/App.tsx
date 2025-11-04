@@ -10,6 +10,7 @@ import Home from "./UI/Home"
  
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import Profile from "./UI/Profile"
+import Notes from "./UI/Notes"
 const App = () => {
   useEffect(() => {
     AOS.init({
@@ -28,6 +29,7 @@ const App = () => {
               <Route path="/login" element={<SignIn/>} />
               <Route path="/home" element={<Home/>} />
               <Route path="/profile" element={<Profile/>} />
+              <Route path="notes" element={<Notes/>} />
             </Route>
         </Routes>
       </Router>
