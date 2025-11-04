@@ -13,7 +13,7 @@ type UpcomingSession = {
   description?: string;
   meetingFrequency?: string;
   location?: string;
-  createdAt?: string;
+  created_at?: string;
 };
 
 const UpcomingSessions = () => {
@@ -91,7 +91,7 @@ const UpcomingSessions = () => {
               <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
                 <div className="flex items-center gap-2">
                   <Users size={16} />
-                  <span>Max {session.maxMembers} members</span>
+                  <span>1/ {session.maxMembers} </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock size={16} />
@@ -113,10 +113,10 @@ const UpcomingSessions = () => {
                     <span className='bg-[#b03030] px-2 rounded text-amber-400'>{session.location}</span>
                   </div>
                 )}
-                {session.createdAt && (
+                {session.created_at && (
                   <div className="flex items-center gap-2">
                     <CalendarIcon size={16} />
-                    <span>Created {formatCreatedAt(session.createdAt)}</span>
+                    <span>Created {formatCreatedAt(session.created_at)}</span>
                   </div>
                 )}
               </div>

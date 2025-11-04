@@ -20,8 +20,8 @@ const SignIn = ({ heading = "Welcome Back" }: SignIn2Props) => {
     setLoading(true)
     setError("")
 
-    console.log(typeof email)
-    console.log(typeof password)
+   // console.log(typeof email)
+    //console.log(typeof password)
     
     try{
       //  API call

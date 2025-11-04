@@ -41,9 +41,10 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
       })
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      if(response.data) {
+      if(response.data.token) {
+        localStorage.setItem('token', response.data.token)
         console.log("backend data is:", response.data)
-        console.log("your toke is", response.data.token)
+         console.log("your toke is", response.data.token)
         navigate("/connect");
       } else {
         setError('error from backend token access')
@@ -141,6 +142,7 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
                   <input
                     type="email"
                     placeholder="Enter your email"
+                    autoComplete="email"
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     required
                     value={email}
@@ -153,6 +155,7 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
                   </label>
                   <input
                     type="text"
+                    autoComplete="username"
                     placeholder="Enter your name"
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     required
@@ -168,6 +171,7 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
                   <input
                     value={password1}
                     onChange={(e) => setPassword1(e.target.value)}
+                    autoComplete="new-password"
                     type="password"
                     placeholder="Create a password"
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
@@ -182,6 +186,7 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
                   <input
                     value={password2}
                     onChange={(e) => setPassword2(e.target.value)}
+                    autoComplete="new-password"
                     type="password"
                     placeholder="Confirm your password"
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"

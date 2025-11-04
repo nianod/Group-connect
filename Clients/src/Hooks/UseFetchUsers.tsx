@@ -19,7 +19,7 @@ export const useFetchUser = () => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log("Token is=", token);
+        //console.log("Token is=", token);
 
         if (!token) {
           setError("No token found. Please log in again.");
@@ -34,7 +34,7 @@ export const useFetchUser = () => {
         });
 
         setUser(res.data.user);
-        console.log("your data is.", res.data.user)
+       // console.log("your data is.", res.data.user)
       } catch (err: any) {
         console.error("Error fetching profile:", err);
         setError("Failed to fetch profile");
@@ -46,5 +46,5 @@ export const useFetchUser = () => {
     fetchUser();
   }, []);
 
-  return { user, loading, error, setUser }; // Added setUser to return
+  return { user, loading, error, setUser }; 
 };
