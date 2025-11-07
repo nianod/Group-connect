@@ -18,6 +18,7 @@ const App = () => {
       once: true
     })
   }, [])
+  
   return (
     <div className="min-h-screen bg-white text-black dark:bg-[rgb(31,31,59)] dark:text-white transition-colors duration-500 ease-in-out">
       <Router>

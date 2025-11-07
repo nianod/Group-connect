@@ -1,16 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  BookOpen, 
-  Plus, 
-  Search, 
-  Filter, 
-  FileText, 
-  Users,
-  Download,
-  Share2,
-  MoreVertical,
-  Folder
-} from 'lucide-react';
+import { BookOpen, Plus, Search, Filter, FileText, Users, Download, Share2, MoreVertical, Folder} from 'lucide-react';
 
 interface Note {
   id: string;
@@ -66,7 +55,7 @@ const Notes = () => {
   return (
     <div className="mt-20 min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 py-8">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Header */}
+      
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-gradient-to-r from-orange-600 to-red-700 rounded-xl flex items-center justify-center">
@@ -84,7 +73,7 @@ const Notes = () => {
           </button>
         </div>
 
-        {/* Search and Filter */}
+         
         <div className="flex items-center gap-4 mb-6">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -101,7 +90,7 @@ const Notes = () => {
           </button>
         </div>
 
-        {/* Subjects Filter */}
+       
         <div className="flex gap-2 mb-6 overflow-x-auto">
           {subjects.map((subject) => (
             <button
@@ -114,14 +103,14 @@ const Notes = () => {
           ))}
         </div>
 
-        {/* Notes Grid */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredNotes.map((note) => (
             <div
               key={note.id}
               className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-700"
             >
-              {/* Note Header */}
+           
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1 line-clamp-1">
@@ -144,13 +133,12 @@ const Notes = () => {
                 </button>
               </div>
 
-              {/* Note Content Preview */}
+    
               <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
                 {note.content}
               </p>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1 mb-4">
+                     <div className="flex flex-wrap gap-1 mb-4">
                 {note.tags.map((tag) => (
                   <span
                     key={tag}
@@ -161,7 +149,7 @@ const Notes = () => {
                 ))}
               </div>
 
-              {/* Note Footer */}
+       
               <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
                 <span className="text-sm text-gray-500 dark:text-gray-400">
                   {note.lastModified}
@@ -179,7 +167,7 @@ const Notes = () => {
           ))}
         </div>
 
-        {/* Empty State */}
+   
         {filteredNotes.length === 0 && (
           <div className="text-center py-12">
             <FileText className="mx-auto text-gray-400 mb-4" size={48} />

@@ -1,11 +1,4 @@
-import {
-  ArrowRight,
-  Star,
-  Users,
-  Calendar,
-  MessageSquare,
-  Brain,
-} from "lucide-react";
+import { ArrowRight, Star, Users, Calendar, MessageSquare, Brain, } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
