@@ -120,7 +120,7 @@ const Connect = () => {
               <button
                 key={index}
                 onClick={() => handleSelect(field)}
-                className={`group p-3 rounded-lg border transition-all duration-200 transform hover:scale-[1.02] hover:shadow-md
+                className={`cursor-pointer group p-3 rounded-lg border transition-all duration-200 transform hover:scale-[1.02] hover:shadow-md
                   ${
                     selectedFields.includes(field)
                       ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-sm"

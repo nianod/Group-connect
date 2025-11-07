@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Calendar, ChevronRight, Clock, MessageSquare, Users, MapPin, Repeat, Calendar as CalendarIcon } from 'lucide-react';
 
@@ -20,11 +20,16 @@ const UpcomingSessions = () => {
   const [sessions, setSessions] = useState<UpcomingSession[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const token = localStorage.getItem('token')
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const res = await axios.get('http://127.0.0.1:8000/groups/all');
-        setSessions(res.data);
+        const res = await axios.get('http://127.0.0.1:8000/groups/', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setSessions(res.data.groups);
         console.log("your:", res.data)
       } catch (err) {
         console.error('Error fetching sessions', err);
@@ -76,7 +81,7 @@ const UpcomingSessions = () => {
             <ChevronRight className="text-gray-400 group-hover:text-gray-600 transition-colors" />
           </div>
 
-          {/* Description */}
+           
           {session.description && (
             <div className="mt-3">
               <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
@@ -105,7 +110,7 @@ const UpcomingSessions = () => {
                 )}
               </div>
 
-              {/* Second row of details */}
+           
               <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
                 {session.location && (
                   <div className="flex items-center gap-2">
