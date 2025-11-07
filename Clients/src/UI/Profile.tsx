@@ -10,8 +10,7 @@ const Profile = () => {
   const { user, loading, error, setUser } = useFetchUser();
   const [editedUser, setEditedUser] = useState<User | null>(null);
 
-  // Initialize editedUser when user data is loaded
-  useEffect(() => {
+   useEffect(() => {
     if (user) {
       setEditedUser(user);
     }
@@ -50,8 +49,7 @@ const Profile = () => {
     }
   };
 
-  // Show loading state
-  if (loading) {
+   if (loading) {
     return (
       <div className="min-h-screen mt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 py-8">
         <div className="max-w-4xl mx-auto px-6 flex justify-center items-center h-64">
@@ -61,8 +59,7 @@ const Profile = () => {
     );
   }
 
-  // Show error state
-  if (error || !user) {
+   if (error || !user) {
     return (
       <div className="min-h-screen mt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 py-8">
         <div className="max-w-4xl mx-auto px-6 flex justify-center items-center h-64">
@@ -77,8 +74,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen mt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 py-8">
       <div className="max-w-4xl mx-auto px-6">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Profile</h1>
           {!isEditing ? (
             <button
@@ -109,13 +105,10 @@ const Profile = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column - Profile Info */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Profile Card */}
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+           <div className="lg:col-span-2 space-y-6">
+             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
               <div className="flex items-start gap-6">
-                {/* Avatar Section */}
-                <div className="relative">
+                 <div className="relative">
                   <div className="w-24 h-24 bg-gradient-to-r from-blue-600 to-purple-700 rounded-full flex items-center justify-center text-white text-2xl font-bold">                        
                     <img 
                       src={user.avatar || getGravatar(user.email)} 
@@ -136,8 +129,7 @@ const Profile = () => {
                   )}
                 </div>
 
-                {/* User Info */}
-                <div className="flex-1 space-y-4">
+                 <div className="flex-1 space-y-4">
                   {isEditing ? (
                     <div className="space-y-4">
                       <div>
@@ -194,8 +186,7 @@ const Profile = () => {
               </div>
             </div>
 
-            {/* Group Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {groupStats.map((stat, index) => (
                 <div
                   key={index}
@@ -215,10 +206,8 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* Right Column - Actions */}
-          <div className="space-y-6">
-            {/* Account Actions */}
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+           <div className="space-y-6">
+             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                 Account Actions
               </h3>

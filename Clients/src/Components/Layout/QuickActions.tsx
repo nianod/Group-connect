@@ -1,5 +1,4 @@
-// QuickActions.tsx
-import { Link } from "react-router-dom";
+ import { Link } from "react-router-dom";
 import { quickActions } from "../../Json/dummy";
 
 interface QuickActionsProps {

@@ -9,8 +9,8 @@ const Logout: React.FC<LogoutProps> = ({
   setShowDeleteConfirm,
 }) => {
   const handleDeleteAccount = () => {
-    // Add account deletion logic here
-    console.log("Account deletion requested");
+    //delete lgc
+   console.log("Account deletion requested");
     setShowDeleteConfirm(false);
   };
 

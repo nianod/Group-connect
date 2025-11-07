@@ -92,8 +92,7 @@ const UpcomingSessions = () => {
 
           <div className="flex items-center justify-between mt-4">
             <div className="flex flex-col gap-3">
-              {/* First row of details */}
-              <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
+               <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
                 <div className="flex items-center gap-2">
                   <Users size={16} />
                   <span>1/ {session.maxMembers} </span>

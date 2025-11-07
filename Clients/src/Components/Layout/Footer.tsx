@@ -5,9 +5,9 @@ const Footer = () => {
   return (
     <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* Main Footer Content */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          {/* Brand Section */}
+ 
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-700 rounded-lg flex items-center justify-center shadow-lg">
@@ -26,8 +26,7 @@ const Footer = () => {
               <span>Connect • Collaborate • Succeed</span>
             </div>
           </div>
-
-          {/* Quick Links */}
+ 
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <BookOpen size={18} />
@@ -52,7 +51,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Resources */}
+ 
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
               Resources
@@ -75,8 +74,7 @@ const Footer = () => {
               ))}
             </ul>
           </div>
-
-          {/* Connect */}
+ 
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
               Connect With Us
