@@ -1,4 +1,4 @@
-import type { UpcomingSession, PastGroup } from "../Types/group";
+import type { PastGroup } from "../Types/group";
 import { Plus, Users, Calendar, BookOpen } from "lucide-react";
 
  
