@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BookOpen, Plus, Search, Filter, FileText, Users, Download, Share2, MoreVertical, Folder} from 'lucide-react';
 
 interface Note {
@@ -12,7 +12,7 @@ interface Note {
 }
 
 const Notes = () => {
-  const [notes, setNotes] = useState<Note[]>([
+  const [notes] = useState<Note[]>([
     {
       id: '1',
       title: 'Data Structures Summary',

@@ -3,12 +3,14 @@ import { Mail, Edit3, Camera, Save, X, Trash2, Plus, Calendar } from 'lucide-rea
 import md5 from "md5"
 import Logout from '../Components/Layout/Logout';
 import { useFetchUser } from '../Hooks/UseFetchUsers';
-
+import type { User } from '../Hooks/UseFetchUsers';
+ 
+ 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const { user, loading, error, setUser } = useFetchUser();
-  const [editedUser, setEditedUser] = useState<User | null>(null);
+  const [editedUser, setEditedUser] = useState< User | null>(null);
 
    useEffect(() => {
     if (user) {
