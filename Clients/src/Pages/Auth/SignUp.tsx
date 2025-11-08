@@ -43,8 +43,8 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
       
       if(response.data.token) {
         localStorage.setItem('token', response.data.token)
-        //console.log("backend data is:", response.data)
-         //console.log("your toke is", response.data.token)
+        console.log("backend data is:", response.data)
+         console.log("your toke is", response.data.token)
         navigate("/connect");
       } else {
         setError('error from backend token access')

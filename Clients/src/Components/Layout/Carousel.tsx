@@ -60,7 +60,7 @@ const Carousel = () => {
                 </p>
                 <div className="text-center">
                   <span className={`bg-gradient-to-r ${testimonial.gradient} bg-clip-text text-transparent font-semibold text-lg`}>
-                    — {testimonial.author}
+                    - {testimonial.author}
                   </span>
                 </div>
               </div>
@@ -85,7 +85,7 @@ const Carousel = () => {
           
           <button 
             onClick={prevSlide}
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 dark:bg-gray-700/80 rounded-full p-2 shadow-lg hover:bg-white dark:hover:bg-gray-600 transition-colors duration-200"
+            className="cursor-pointer absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 dark:bg-gray-700/80 rounded-full p-2 shadow-lg hover:bg-white dark:hover:bg-gray-600 transition-colors duration-200"
           >
             <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -93,7 +93,7 @@ const Carousel = () => {
           </button>
           <button 
             onClick={nextSlide}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 dark:bg-gray-700/80 rounded-full p-2 shadow-lg hover:bg-white dark:hover:bg-gray-600 transition-colors duration-200"
+            className="cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 dark:bg-gray-700/80 rounded-full p-2 shadow-lg hover:bg-white dark:hover:bg-gray-600 transition-colors duration-200"
           >
             <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

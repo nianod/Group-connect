@@ -1,5 +1,3 @@
- 
-
 from fastapi import APIRouter, Depends
 from bson import ObjectId
 from Database.Users.db import groups_collection

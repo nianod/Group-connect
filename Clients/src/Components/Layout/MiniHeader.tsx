@@ -27,10 +27,9 @@ const MiniHeader = () => {
           </div>
  
           <div className="flex items-center gap-4 relative z-50">
-            <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+            <button className="cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
               <Bell className="text-gray-600 dark:text-gray-300" size={20} />
             </button>
-
        
             <button
               onClick={() => setUserMenu(!userMenu)}
