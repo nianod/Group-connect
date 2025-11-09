@@ -26,7 +26,7 @@ const UpcomingSessions = () => {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const res = await axios.get('http://127.0.0.1:8000/groups/', {
+        const res = await axios.get('https://maingrbackend-9e0d3a1edb04.herokuapp.com/groups/', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setSessions(res.data.groups);

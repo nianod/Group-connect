@@ -45,7 +45,7 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
     }
 
     try{
-      const response = await axios.post("http://127.0.0.1:8000/groups/create", dataToSend)
+      const response = await axios.post("https://maingrbackend-9e0d3a1edb04.herokuapp.com/groups/create", dataToSend);
       console.log("data  is", response.data)
       alert("Bravooo")
     } catch(err: any) {

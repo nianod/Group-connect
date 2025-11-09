@@ -27,7 +27,7 @@ export const useFetchUser = () => {
           return;
         }
 
-        const res = await axios.get("http://127.0.0.1:8000/user/profile", {
+        const res = await axios.get("https://maingrbackend-9e0d3a1edb04.herokuapp.com/user/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

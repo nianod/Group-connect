@@ -34,11 +34,15 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
       }
 
       //  API call
-      const response = await axios.post('http://127.0.0.1:8000/signup', {
-        email,
-        password: password1,
-        name
-      })
+          const response = await axios.post(
+            "https://maingrbackend-9e0d3a1edb04.herokuapp.com/signup",
+            {
+              email,
+              password: password1,
+              name,
+            }
+          );
+
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       if(response.data.token) {

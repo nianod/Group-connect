@@ -23,21 +23,23 @@ const SignIn = ({ heading = "Welcome Back" }: SignIn2Props) => {
    // console.log(typeof email)
     //console.log(typeof password)
     
-    try{
+    try {
       //  API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      const response = await axios.post('http://127.0.0.1:8000/signin', {
-        email,
-        password
-      })
-      
-      if(response.data.token) {
-        localStorage.setItem('token', response.data.token)
+      const response = await axios.post( "https://maingrbackend-9e0d3a1edb04.herokuapp.com/signin",
+        {
+          email,
+          password,
+        }
+      );
+
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
         navigate("/home");
-      }else {
-        setError(response.data.error || "Login Failed")
-        console.error(error)
+      } else {
+        setError(response.data.error || "Login Failed");
+        console.error(error);
       }
     } catch (err) {
       setError("Invalid email or password. Please try again.");
