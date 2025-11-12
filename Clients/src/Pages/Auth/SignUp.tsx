@@ -34,9 +34,8 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
       }
 
       //  API call
-          const response = await axios.post(
-            "https://maingrbackend-9e0d3a1edb04.herokuapp.com/signup",
-            {
+      const backendPort = import.meta.env.VITE_BACKEND_URL
+          const response = await axios.post(`${backendPort}/signup`, {
               email,
               password: password1,
               name,
