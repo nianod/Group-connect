@@ -7,13 +7,15 @@ from fastapi.responses import RedirectResponse
 from Routes import user
 from Routes.send import router as send_router  
 from Routes.group import router as group_router
+import os
+
+
 
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:5173, https://pro-trailblazers-gamma.vercel.app"
-]
+origins = os.getenv("ALLOWED_ORIGINS")
+ 
 
 app.add_middleware(
     CORSMiddleware,
