@@ -12,7 +12,7 @@ from Routes.group import router as group_router
 app = FastAPI()
 
 origins = [
-    "http://localhost:5173, https://group-connect-gamma.vercel.app"
+    "http://localhost:5173, https://pro-trailblazers-gamma.vercel.app"
 ]
 
 app.add_middleware(
