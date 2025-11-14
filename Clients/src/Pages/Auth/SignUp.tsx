@@ -34,25 +34,25 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
       }
 
       //  API call
-      const backendPort = import.meta.env.VITE_BACKEND_URL
-          const response = await axios.post(`${backendPort}/signup`, {
-              email,
-              password: password1,
-              name,
-            }
-          );
+      const backendPort = import.meta.env.VITE_BACKEND_URL;
+      const response = await axios.post(`${backendPort}/signup`, {
+        email,
+        password: password1,
+        name,
+      });
 
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      if(response.data.token) {
-        localStorage.setItem('token', response.data.token)
-        console.log("backend data is:", response.data)
-         console.log("your toke is", response.data.token)
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      console.log("Full backend response:", response.data);
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+        console.log("Your token is", response.data.token);
         navigate("/connect");
       } else {
-        setError('error from backend token access')
-        
+        setError("error from backend token access");
+        console.error("Token missing from backend response", response.data);
       }
+
       
 
     } catch (err: any) {
