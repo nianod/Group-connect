@@ -45,7 +45,9 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
     }
 
     try{
-      const response = await axios.post("https://maingrbackend-9e0d3a1edb04.herokuapp.com/groups/create", dataToSend);
+
+      const crestegroup = import.meta.env.VITE_BACKEND_URL
+      const response = await axios.post(`${crestegroup}create`, dataToSend);
       console.log("data  is", response.data)
       alert("Bravooo")
     } catch(err: any) {

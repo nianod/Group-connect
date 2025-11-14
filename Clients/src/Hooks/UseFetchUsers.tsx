@@ -27,7 +27,8 @@ export const useFetchUser = () => {
           return;
         }
 
-        const res = await axios.get("https://maingrbackend-9e0d3a1edb04.herokuapp.com/user/profile", {
+        const profilePort = import.meta.env.VITE_BACKEND_URL
+        const res = await axios.get(`${profilePort}/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
