@@ -7,6 +7,7 @@ interface Signup2Props {
   heading?: string;
 }
 
+
 const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -40,6 +41,7 @@ const Signup2 = ({ heading = "Create Account" }: Signup2Props) => {
         password: password1,
         name,
       });
+
 
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
