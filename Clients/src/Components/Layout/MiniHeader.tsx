@@ -22,7 +22,7 @@ const MiniHeader = () => {
        
           <div className="flex items-center gap-4">
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {greeting} {user?.name}!
+              {greeting} {user?.name.toUpperCase()}!
             </h1>
           </div>
  
