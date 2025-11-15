@@ -28,7 +28,7 @@ export const useFetchUser = () => {
         }
 
         const profilePort = import.meta.env.VITE_BACKEND_URL
-        const res = await axios.get(`${profilePort}/profile`, {
+        const res = await axios.get(`${profilePort}/user/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

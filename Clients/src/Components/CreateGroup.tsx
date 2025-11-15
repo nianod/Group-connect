@@ -30,8 +30,7 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
       [name]: value
     }));
   };
-
-  
+ 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
