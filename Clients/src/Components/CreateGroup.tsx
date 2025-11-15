@@ -42,9 +42,6 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
     ...formData,
     maxMembers: Number(formData.maxMembers)
     }
-
-    
-
     try{
 
       const crestegroup = import.meta.env.VITE_BACKEND_URL
