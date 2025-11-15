@@ -54,16 +54,12 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
         headers: {
           Authorization: `Bearer ${token}`,
         }
-      });
+      })
+
       console.log("Here you go", token)
       console.log("data  is", response.data)
       alert("Bravooo")
 
-      if(!token) {
-        setError('You are not authenticated')
-        setLoading(false)
-        return
-      }
     } catch(err: any) {
       setError("Error creating group")
       console.log(err)

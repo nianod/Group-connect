@@ -39,13 +39,13 @@ const SignIn = ({ heading = "Welcome Back" }: SignIn2Props) => {
         localStorage.setItem("token", response.data.token);
         navigate("/home");
       } else {
-        setError(response.data.error || "Login Failed");
-        console.error(error);
+        setError(response.data.error || "Login Failed")
+        console.error(error)
       }
     } catch (err) {
-      setError("Invalid email or password. Please try again.");
+      setError("Invalid email or password. Please try again.")
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   };
 
