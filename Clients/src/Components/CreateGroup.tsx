@@ -43,15 +43,30 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
     maxMembers: Number(formData.maxMembers)
     }
 
+    
+
     try{
 
       const crestegroup = import.meta.env.VITE_BACKEND_URL
-      const response = await axios.post(`${crestegroup}create`, dataToSend);
+
+      const token = localStorage.getItem('token')
+      const response = await axios.post(`${crestegroup}/groups/create`, dataToSend, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      console.log("Here you go", token)
       console.log("data  is", response.data)
       alert("Bravooo")
+
+      if(!token) {
+        setError('You are not authenticated')
+        setLoading(false)
+        return
+      }
     } catch(err: any) {
       setError("Error creating group")
-      console.log(err.response.data)
+      console.log(err)
 
     } finally {
       setLoading(false)
@@ -272,7 +287,7 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
                 <button
                   disabled={loading}
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-700 text-white py-4 rounded-xl hover:from-blue-700 hover:to-purple-800 transition-all duration-200 transform hover:scale-105 font-semibold text-lg"
+                  className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-purple-700 text-white py-4 rounded-xl hover:from-blue-700 hover:to-purple-800 transition-all duration-200 transform hover:scale-105 font-semibold text-lg"
                 >
                   {loading ? (
                     <div className="flex items-center justify-center gap-2">
