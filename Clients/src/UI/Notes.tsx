@@ -67,7 +67,7 @@ const Notes = () => {
             </div>
           </div>
           
-          <button className="flex items-center gap-2 bg-gradient-to-r from-orange-600 to-red-700 text-white px-6 py-3 rounded-xl hover:from-orange-700 hover:to-red-800 transition-all duration-200 transform hover:scale-105">
+          <button className="flex cursor-pointer items-center gap-2 bg-gradient-to-r from-orange-600 to-red-700 text-white px-6 py-3 rounded-xl hover:from-orange-700 hover:to-red-800 transition-all duration-200 transform hover:scale-105">
             <Plus size={20} />
             New Note
           </button>
@@ -85,7 +85,7 @@ const Notes = () => {
               className="w-full pl-10 pr-4 py-3 bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent backdrop-blur-sm"
             />
           </div>
-          <button className="p-3 bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors backdrop-blur-sm">
+          <button className="cursor-pointer p-3 bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors backdrop-blur-sm">
             <Filter size={20} className="text-gray-600 dark:text-gray-300" />
           </button>
         </div>
@@ -95,7 +95,7 @@ const Notes = () => {
           {subjects.map((subject) => (
             <button
               key={subject}
-              className="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-orange-500 dark:hover:border-orange-400 transition-colors backdrop-blur-sm whitespace-nowrap"
+              className="flex cursor-pointer items-center gap-2 px-4 py-2 bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-orange-500 dark:hover:border-orange-400 transition-colors backdrop-blur-sm whitespace-nowrap"
             >
               <Folder size={16} className="text-orange-600" />
               {subject}
@@ -128,7 +128,7 @@ const Notes = () => {
                     )}
                   </div>
                 </div>
-                <button className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">
+                <button className="cursor-pointer p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">
                   <MoreVertical size={16} className="text-gray-400" />
                 </button>
               </div>
@@ -155,10 +155,10 @@ const Notes = () => {
                   {note.lastModified}
                 </span>
                 <div className="flex gap-2">
-                  <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                  <button className="p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
                     <Share2 size={16} className="text-gray-600 dark:text-gray-300" />
                   </button>
-                  <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                  <button className="p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
                     <Download size={16} className="text-gray-600 dark:text-gray-300" />
                   </button>
                 </div>
