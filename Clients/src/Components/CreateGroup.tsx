@@ -65,7 +65,7 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
     } finally {
       setLoading(false)
     }
-
+      
     
     console.log('Group created:', formData);
     
