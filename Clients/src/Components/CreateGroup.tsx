@@ -53,7 +53,8 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
         }
       })
 
-      console.log("Here you go", token)
+      console.log("TOKEN IN CREATE GROUP:", token);
+
       console.log("data  is", response.data)
       alert("Bravooo")
 
