@@ -1,34 +1,27 @@
 import { Users, Search, Filter, Repeat } from 'lucide-react';
-import { pastGroups,  } from '../Json/dummy';
+import { pastGroups } from '../Json/dummy';
 import MiniHeader from '../Components/Layout/MiniHeader';
 import QuickActions from '../Components/Layout/QuickActions';
 import { useState } from 'react';
 import CreateGroup from '../Components/CreateGroup';
 import UpcomingSessions from '../Components/UpComingSession';
 
-
 const Dashboard = () => {
-
-  const [post, setPost] = useState<boolean>(false)
+  const [post, setPost] = useState<boolean>(false);
 
   const handleCreateGroup = () => {
-    setPost(true)
-  }
-
+    setPost(true);
+  };
 
   return (
     <div className="min-h-screen mt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
-
-       <MiniHeader />
+      <MiniHeader />
     
       <div className="max-w-7xl mx-auto px-6 py-8">
-                
-      <QuickActions onCreateGroup={handleCreateGroup}/>
+        <QuickActions onCreateGroup={handleCreateGroup} />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
           <div className="lg:col-span-2">
-             
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Upcoming Sessions
@@ -47,14 +40,16 @@ const Dashboard = () => {
                 </button>
               </div>
             </div>
-             <div className="grid grid-cols-1 gap-4">
-              <UpcomingSessions />
-            </div>
             
-          </div> 
+             
+            <div className="h-[600px] overflow-y-auto pr-2"> 
+              <div className="space-y-4">
+                <UpcomingSessions />
+              </div>
+            </div>
+          </div>
 
           <div className="space-y-6">
-            
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                 Your Study Groups
@@ -95,7 +90,6 @@ const Dashboard = () => {
               </div>
             </div>
 
-             
             <div className="bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl p-6 shadow-2xl">
               <h3 className="text-white text-lg font-semibold mb-4">
                 Your Progress This Week
@@ -127,7 +121,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <CreateGroup post={post} setPost={setPost}/>
+      <CreateGroup post={post} setPost={setPost} />
     </div>
   );
 };
