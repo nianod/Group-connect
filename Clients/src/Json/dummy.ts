@@ -1,5 +1,5 @@
 import type { PastGroup } from "../Types/group";
-import { Plus, Users, Calendar, BookOpen } from "lucide-react";
+import { Plus, Users, BookOpen, BotIcon} from "lucide-react";
 
  
 export const pastGroups: PastGroup[] = [
@@ -48,9 +48,9 @@ export const quickActions = [
     link: "/groups",
   },
   {
-    icon: Calendar,
-    label: "Schedule Session",
-    description: "Plan your study time",
+    icon: BotIcon,
+    label: "Start An Online Session",
+    description: "Plan a digitized online session",
     color: "from-purple-600 to-pink-700",
     link: "/schedule",
   },
