@@ -3,9 +3,10 @@ import { quickActions } from "../../Json/dummy";
 
 interface QuickActionsProps {
   onCreateGroup?: () => void;
+  onCreateOnlineSession?: () => void
 }
 
-const QuickActions = ({ onCreateGroup }: QuickActionsProps) => {
+const QuickActions = ({ onCreateGroup, onCreateOnlineSession }: QuickActionsProps) => {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -13,6 +14,7 @@ const QuickActions = ({ onCreateGroup }: QuickActionsProps) => {
           const ActionIcon = action.icon;
          
           const isCreateGroup = action.label === "Create Group";
+          const isOnlineSession = action.label === "Start An Online Session"
 
           return isCreateGroup ? (
             <div
