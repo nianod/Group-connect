@@ -93,7 +93,7 @@ const CreateGroup: React.FC<postProps> = ({post, setPost}) => {
     <div> 
         {post && (
             <div
-              className="z-[9998] inset-0 fixed backdfgrop-blur-sm bg-black/50"
+              className="z-[9998] inset-0 fixed bg-black/50"
               onClick={() => setPost(false)}
             ></div>
         )}
