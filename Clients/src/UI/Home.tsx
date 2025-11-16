@@ -5,6 +5,7 @@ import QuickActions from '../Components/Layout/QuickActions';
 import { useState } from 'react';
 import CreateGroup from '../Components/CreateGroup';
 import UpcomingSessions from '../Components/UpComingSession';
+import OnlineSession from '../Components/OnlineSession';
 
 const Dashboard = () => {
   const [post, setPost] = useState<boolean>(false)
@@ -23,8 +24,8 @@ const Dashboard = () => {
       <MiniHeader />
     
       <div className="max-w-7xl mx-auto px-6 py-8">
-        <QuickActions onCreateGroup={handleCreateGroup} />
-        <QuickActions onCreateOnlineSession={handleCreateOnlineSession} />
+        <QuickActions onCreateGroup={handleCreateGroup} onCreateOnlineSession={handleCreateOnlineSession} />
+         
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
@@ -128,8 +129,11 @@ const Dashboard = () => {
         </div>
       </div>
       <CreateGroup post={post} setPost={setPost} />
+      <OnlineSession onlineSession={onlineSession} setOnlineSession={setOnlineSession} />
     </div>
   );
 };
 
 export default Dashboard;
+
+
