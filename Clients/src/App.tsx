@@ -11,6 +11,7 @@ import Home from "./UI/Home"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import Profile from "./UI/Profile"
 import Notes from "./UI/Notes"
+import usePageTracking from "./usePageTracking"
 const App = () => {
   useEffect(() => {
     AOS.init({
@@ -19,6 +20,7 @@ const App = () => {
     })
   }, [])
   
+  usePageTracking()
   return (
     <div className="min-h-screen bg-white text-black dark:bg-[rgb(31,31,59)] dark:text-white transition-colors duration-500 ease-in-out">
       <Router>
