@@ -7,11 +7,16 @@ import CreateGroup from '../Components/CreateGroup';
 import UpcomingSessions from '../Components/UpComingSession';
 
 const Dashboard = () => {
-  const [post, setPost] = useState<boolean>(false);
+  const [post, setPost] = useState<boolean>(false)
+  const [onlineSession, setOnlineSession] = useState<boolean>(false) 
 
   const handleCreateGroup = () => {
     setPost(true);
   };
+
+  const handleCreateOnlineSession = () => {
+    setOnlineSession(true)
+  }
 
   return (
     <div className="min-h-screen mt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
@@ -19,6 +24,7 @@ const Dashboard = () => {
     
       <div className="max-w-7xl mx-auto px-6 py-8">
         <QuickActions onCreateGroup={handleCreateGroup} />
+        <QuickActions onCreateOnlineSession={handleCreateOnlineSession} />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
