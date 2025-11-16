@@ -37,6 +37,8 @@ const SignIn = ({ heading = "Welcome Back" }: SignIn2Props) => {
 
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
+        const token = localStorage.getItem("token")
+        console.log("here's you token", token)
         navigate("/home");
       } else {
         setError(response.data.error || "Login Failed")
