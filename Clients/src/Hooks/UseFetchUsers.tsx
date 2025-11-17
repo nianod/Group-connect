@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import type { User } from "../Types/group";
 
-export interface User {
-  name: string;
-  email: string;
-  role?: string;
-  university?: string;
-  bio?: string;
-  avatar?: string | null;
-}
-
+  
 export const useFetchUser = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);

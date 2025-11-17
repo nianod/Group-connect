@@ -3,9 +3,8 @@ import { Mail, Edit3, Camera, Save, X, Trash2, Plus, Calendar } from 'lucide-rea
 import md5 from "md5"
 import Logout from '../Components/Layout/Logout';
 import { useFetchUser } from '../Hooks/UseFetchUsers';
-import type { User } from '../Hooks/UseFetchUsers';
- 
- 
+import type { User } from '../Types/group'; 
+   
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);

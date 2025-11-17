@@ -30,3 +30,22 @@ export interface UpcomingSession  {
   skill_level: string;
   description?: string;
 };
+
+export interface User {
+  name: string;
+  email: string;
+  role?: string;
+  university?: string;
+  bio?: string;
+  avatar?: string | null;
+}
+
+export interface Note {
+  id: string;
+  title: string;
+  content: string;
+  subject: string;
+  lastModified: string;
+  shared: boolean;
+  tags: string[];
+}
