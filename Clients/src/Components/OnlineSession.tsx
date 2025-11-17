@@ -50,7 +50,9 @@ const OnlineSession: React.FC<OnlineSessionProps> = ({ onlineSession, setOnlineS
         ></div>
       )}
 
-       <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+       <div 
+         data-aos="zoom-in"
+         className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
         <div
           className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full max-w-2xl max-h-[90vh] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}

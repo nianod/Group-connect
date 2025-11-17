@@ -1,20 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Calendar, CheckCheck, ChevronRight, Clock, MessageSquare, Users, MapPin, Repeat, Calendar as CalendarIcon } from 'lucide-react';
-
-type UpcomingSession = {
-  _id: string;
-  groupName: string;
-  subject: string;
-  meetingDate: string;
-  meetingTime: string;
-  maxMembers: number;
-  skillLevel: string;
-  description?: string;
-  meetingFrequency?: string;
-  location?: string;
-  created_at?: string;
-};
+import type { UpcomingSession } from '../Types/group';
 
 const UpcomingSessions = () => {
   const [sessions, setSessions] = useState<UpcomingSession[]>([]);
@@ -29,7 +16,9 @@ const UpcomingSessions = () => {
 
         const groups = import.meta.env.VITE_BACKEND_URL
         const res = await axios.get(`${groups}/groups`, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { 
+            Authorization: `Bearer ${token}`
+          }
         });
         setSessions(res.data.groups);
       } catch (err) {
@@ -70,7 +59,7 @@ const UpcomingSessions = () => {
 
   return (
     <div className="grid grid-cols-1 gap-4">
-      {sessions.map((session, index) => {
+      {sessions.slice().reverse().map((session, index) => {
         const isJoined = joinedSessions.includes(session._id);
 
         return (
