@@ -12,6 +12,7 @@ import Profile from "./UI/Profile"
 import Notes from "./UI/Notes"
 import PageTrackerWrapper from "./PageTrackWrapper"
 import ForgotPassword from "./Pages/Auth/ResetPassword"
+import { Toaster } from "react-hot-toast"
 
 const App = () => {
   useEffect(() => {
@@ -23,6 +24,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-white text-black dark:bg-[rgb(31,31,59)] dark:text-white transition-colors duration-500 ease-in-out">
+       <Toaster position="top-right" reverseOrder={false} />
       <Router>
           <PageTrackerWrapper />
 
