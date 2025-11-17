@@ -49,3 +49,17 @@ export interface Note {
   shared: boolean;
   tags: string[];
 }
+
+export interface UpcomingSession {
+  _id: string;
+  groupName: string;
+  subject: string;
+  meetingDate: string;
+  meetingTime: string;
+  maxMembers: number;
+  skillLevel: string;
+  description?: string;
+  meetingFrequency?: string;
+  location?: string;
+  created_at?: string;
+};
