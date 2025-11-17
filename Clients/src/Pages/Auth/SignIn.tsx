@@ -163,9 +163,9 @@ const SignIn = ({ heading = "Welcome Back" }: SignIn2Props) => {
                     />
                     <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
                   </label>
-                  <a href="#" className="text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                  <Link to="/reset" className="text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium">
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
               </div>
 
