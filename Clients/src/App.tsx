@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import Profile from "./UI/Profile"
 import Notes from "./UI/Notes"
 import PageTrackerWrapper from "./PageTrackWrapper"
+import ForgotPassword from "./Pages/Auth/ResetPassword"
 
 const App = () => {
   useEffect(() => {
@@ -32,6 +33,7 @@ const App = () => {
             <Route path="/register" element={<SignUp />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/home" element={<Home />} />
+            <Route path="reset" element={<ForgotPassword />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="notes" element={<Notes />} />
           </Route>
