@@ -1,15 +1,6 @@
 import { useState } from 'react';
 import { BookOpen, Plus, Search, Filter, FileText, Users, Download, Share2, MoreVertical, Folder} from 'lucide-react';
-
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-  subject: string;
-  lastModified: string;
-  shared: boolean;
-  tags: string[];
-}
+import type { Note } from '../Types/group';
 
 const Notes = () => {
   const [notes] = useState<Note[]>([
