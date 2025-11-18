@@ -1,3 +1,6 @@
+const MAINTENANCE = true;
+
+
 import Landing from "./Pages/Landing"
 import Layout from "./Components/Layout/Layout"
 import Connect from "./Components/Connect"
@@ -22,6 +25,14 @@ const App = () => {
     })
   }, [])
 
+if (MAINTENANCE) {
+  return (
+    <div>
+      <p className="flex flex-col items-center">404 Server suspended by the owner!
+      <span>Our engineers are currently working on it!</span> </p>  
+    </div>
+  );
+}else
   return (
     <div className="min-h-screen bg-white text-black dark:bg-[rgb(31,31,59)] dark:text-white transition-colors duration-500 ease-in-out">
        <Toaster position="top-right" reverseOrder={false} />
@@ -46,3 +57,4 @@ const App = () => {
 }
 
 export default App
+
