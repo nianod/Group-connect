@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { X, Users, MapPin, Clock, Calendar } from "lucide-react";
+import { X, Users, MapPin, Clock, Calendar, Loader2 } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -42,10 +42,7 @@ const CreateGroup: React.FC<postProps> = ({ post, setPost }) => {
     setError("");
     // form submission
 
-    const dataToSend = {
-      ...formData,
-      maxMembers: Number(formData.maxMembers),
-    };
+    const dataToSend = {...formData, maxMembers: Number(formData.maxMembers), };
     try {
       const crestegroup = import.meta.env.VITE_BACKEND_URL;
 
@@ -57,7 +54,7 @@ const CreateGroup: React.FC<postProps> = ({ post, setPost }) => {
         }
       );
 
-      console.log("TOKEN IN CREATE GROUP:", token);
+      //console.log("TOKEN IN CREATE GROUP:", token);
 
       console.log("data  is", response.data);
       toast.success("Group created successfully")
@@ -295,31 +292,16 @@ const CreateGroup: React.FC<postProps> = ({ post, setPost }) => {
             <button
               disabled={loading}
               type="submit"
-              className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-purple-700 text-white py-4 rounded-xl hover:from-blue-700 hover:to-purple-800 transition-all duration-200 transform hover:scale-105 font-semibold text-lg"
+              className={`w-full bg-gradient-to-r from-blue-600 to-purple-700 text-white py-4 rounded-xl hover:from-blue-700 hover:to-purple-800 transition-all duration-200 transform font-semibold text-lg ${
+                loading
+                  ? "cursor-not-allowed opacity-70"
+                  : "cursor-pointer hover:scale-105"
+              }`}
             >
               {loading ? (
                 <div className="flex items-center justify-center gap-2">
-                  <svg
-                    className="animate-spin h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                  Creating Account...
+                  <Loader2 className="animate-spin h-5 w-5 text-white" />
+                  Processing...
                 </div>
               ) : (
                 "Create Group"

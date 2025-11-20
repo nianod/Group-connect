@@ -4,23 +4,22 @@ from Auth.Services.authService import hash_password
 from Auth.Services.authService import verify_password
 from pydantic import BaseModel
 from fastapi.responses import RedirectResponse
+from starlette.concurrency import run_in_threadpool
+from fastapi import HTTPException, status
 from Routes import user
 from Routes.send import router as send_router  
 from Routes.group import router as group_router
-import os
-
-
-
-
 app = FastAPI()
+import os 
 
-origins = os.getenv("ALLOWED_ORIGINS")
- 
+origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
+print("origina are...", origins)
+
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = origins,
-    allow_credentials=True,
+    allow_origins =["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"]
 )
@@ -65,17 +64,31 @@ async def test():
 @app.post('/signin')
 async def Login(user: LoginCredentials):
     try:
-        existing_user = users_collection.find_one({"email": user.email})
+        existing_user = await run_in_threadpool(
+            lambda: users_collection.find_one({"email": user.email})
+        )
 
         if not existing_user:
             return {"Message": "User not found"}
-        
 
-        if not verify_password(user.password, existing_user['password']):
+        is_valid = await run_in_threadpool(
+            lambda: verify_password(user.password, existing_user["password"])
+        )
+
+        if not is_valid:
             return {"Message": "User not found"}
-        
-        token = access_token({"email": user.email})
+
+        # token = await run_in_threadpool(
+        #     lambda: access_token({"email": user.email})
+        # )
+
+        token = await run_in_threadpool(
+            lambda: access_token({"_id": str(existing_user["_id"]), "email": user.email})
+        )
+
+
         return {"Message": "Login successful", "token": token}
+
     except Exception as e:
         return {"error": f"Login Failed {str(e)}"}
 
@@ -84,29 +97,56 @@ async def Login(user: LoginCredentials):
 @app.post('/signup')
 async def Register(user: UserCredentials):
     try:
-        existing_user = users_collection.find_one({'email': user.email})
+        # Blocking DB call == threadpool
+        existing_user = await run_in_threadpool(
+            lambda: users_collection.find_one({'email': user.email})
+        )
+
         if existing_user:
-            return {"error": "User already exists"}
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="User already exists"
+            )
+
+        # Hashing == threadpool
+        hashed_password = await run_in_threadpool(
+            lambda: hash_password(user.password)
+        )
+
+        # Insert == threadpool
+        result = await run_in_threadpool(
+            lambda: users_collection.insert_one({
+                "email": user.email,
+                "password": hashed_password,
+                "name": user.name
+            })
+        )
+
+        user_id = str(result.inserted_id)
+
+        token = await run_in_threadpool(
+            lambda: access_token({"_id": user_id, "email": user.email})
+        )
         
-        # hashed_password = hash_password(user["password"])
-        hashed_password = hash_password(user.password)
 
+        # token = await run_in_threadpool(
+        #     lambda: access_token({"email": user.email})
+        # )
 
-        #Insert data into mongo
-        users_collection.insert_one({
-            "email": user.email,
-            "password": hashed_password,
-            "name": user.name
-        })
-        # token = access_token({"email": user["email"]})
-        token = access_token({"email": user.email})
+        # token = await run_in_threadpool(
+        #     lambda: access_token({"_id": str(existing_user["_id"]), "email": user.email})
+        # )
+
         return {"message": "User registered successfully", "token": token}
+
+    except HTTPException:
+        raise
+
     except Exception as e:
         return {"error": f"Registration failed: {str(e)}"}
+
     
-
-
-
 app.include_router(user.router, prefix="/user")
 app.include_router(group_router)
 app.include_router(send_router)
+
