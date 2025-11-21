@@ -9,6 +9,8 @@ from fastapi import HTTPException, status
 from Routes import user
 from Routes.send import router as send_router  
 from Routes.group import router as group_router
+from Routes.online import router as online_router
+
 app = FastAPI()
 import os 
 
@@ -149,4 +151,4 @@ async def Register(user: UserCredentials):
 app.include_router(user.router, prefix="/user")
 app.include_router(group_router)
 app.include_router(send_router)
-
+app.include_router(online_router)
