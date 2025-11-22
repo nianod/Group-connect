@@ -303,7 +303,7 @@ const CreateGroup: React.FC<postProps> = ({ post, setPost }) => {
                   <Loader2 className="animate-spin h-5 w-5 text-white" />
                   Processing...
                 </div>
-              ) : (
+              ) : ( 
                 "Create Group"
               )}
             </button>

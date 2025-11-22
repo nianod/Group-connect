@@ -10,7 +10,8 @@ type OnlineSessionProps = {
 }
 
 const OnlineSession: React.FC<OnlineSessionProps> = ({ onlineSession, setOnlineSession }) => {
-  const [formData, setFormData] = useState({ sessionTitle: '',
+  const [formData, setFormData] = useState({ 
+    sessionTitle: '',
     subject: '',
     meetingLink: '',
     meetingDate: '',
