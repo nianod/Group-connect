@@ -46,9 +46,7 @@ const Dashboard = () => {
                   <Filter size={20} className="text-gray-600 dark:text-gray-300" />
                 </button>
               </div>
-            </div>
-            
-             
+            </div>             
             <div className="h-[600px] overflow-y-auto pr-2"> 
               <div className="space-y-4">
                 <UpcomingSessions />

@@ -1,4 +1,4 @@
-const MAINTENANCE = true;
+const MAINTENANCE = false;
 
 
 import Landing from "./Pages/Landing"
@@ -28,7 +28,7 @@ const App = () => {
 if (MAINTENANCE) {
   return (
     <div>
-      <p className="flex flex-col items-center">404 Server suspended by the owner!
+      <p className="flex flex-col items-center">Server suspended by the owner!
       <span>Our engineers are currently working on it!</span> </p>  
     </div>
   );

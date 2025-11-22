@@ -4,6 +4,7 @@ import type { Note } from '../Types/group';
 
 const Notes = () => {
   const [notes] = useState<Note[]>([
+
     {
       id: '1',
       title: 'Data Structures Summary',
@@ -63,7 +64,6 @@ const Notes = () => {
             New Note
           </button>
         </div>
-
          
         <div className="flex items-center gap-4 mb-6">
           <div className="flex-1 relative">
@@ -80,7 +80,6 @@ const Notes = () => {
             <Filter size={20} className="text-gray-600 dark:text-gray-300" />
           </button>
         </div>
-
        
         <div className="flex gap-2 mb-6 overflow-x-auto">
           {subjects.map((subject) => (
@@ -92,9 +91,7 @@ const Notes = () => {
               {subject}
             </button>
           ))}
-        </div>
-
-        
+        </div>        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredNotes.map((note) => (
             <div
