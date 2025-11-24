@@ -4,35 +4,48 @@ import { Calendar, CheckCheck, ChevronRight, Clock, MessageSquare, Users, MapPin
 import type { UpcomingSession } from '../Types/group';
 
 const UpcomingSessions = () => {
-  const [sessions, setSessions] = useState<UpcomingSession[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-const [physicalSessions, setPhysicalSessions] = useState<UpcomingSession[]>([]);
-const [onlineSessions, setOnlineSessions] = useState<UpcomingSession[]>([]);
+  const [physicalSessions, setPhysicalSessions] = useState<UpcomingSession[]>([]);
+  const [onlineSessions, setOnlineSessions] = useState<UpcomingSession[]>([]);
+  const [joinedSessions, setJoinedSessions] = useState<string[]>([]);  
+  const [sessionType, setSessionType] = useState<'all' | 'online' | 'physical'>('all');
 
-const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
 
-useEffect(() => {
-  const fetchPhysical = async () => {
-    const groups = import.meta.env.VITE_BACKEND_URL;
-    const res = await axios.get(`${groups}/groups`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setPhysicalSessions(res.data.groups);
+  useEffect(() => {
+    const fetchPhysical = async () => {
+      try {
+        const groups = import.meta.env.VITE_BACKEND_URL;
+        const res = await axios.get(`${groups}/groups`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setPhysicalSessions(res.data.groups || []);
+      } catch (error) {
+        console.error('Error fetching physical sessions:', error);
+        setPhysicalSessions([]);
+      }
+    };
+
+    const fetchOnline = async () => {
+      try {
+        const groups = import.meta.env.VITE_BACKEND_URL;
+        const res = await axios.get(`${groups}/online`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setOnlineSessions(res.data.online || []);
+      } catch (error) {
+        console.error('Error fetching online sessions:', error);
+        setOnlineSessions([]);
+      }
+    };
+
+    Promise.all([fetchPhysical(), fetchOnline()]).finally(() => setLoading(false));
+  }, [token]);
+
+  const handleJoin = (id: string) => {
+    setJoinedSessions((prev) => [...prev, id]);
   };
 
-  const fetchOnline = async () => {
-    const groups = import.meta.env.VITE_BACKEND_URL;
-    const res = await axios.get(`${groups}/online`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setOnlineSessions(res.data.online);
-  };
-
-  Promise.all([fetchPhysical(), fetchOnline()]).finally(() => setLoading(false));
-}, []);
-
-
- 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       weekday: 'short',
@@ -49,30 +62,30 @@ useEffect(() => {
     });
   };
 
+  // sessions 
+  const sessions =
+    sessionType === 'online'
+      ? onlineSessions
+      : sessionType === 'physical'
+      ? physicalSessions
+      : [...physicalSessions, ...onlineSessions];
+
   // Helper function to check if session is online
   const isSessionOnline = (session: UpcomingSession): boolean => {
-    return !!(session.isOnline || session.meetingLink || session.meetingPlatform);
+   
+    return onlineSessions.some(onlineSession => onlineSession._id === session._id) ||
+           !!(session.isOnline || session.meetingLink || session.meetingPlatform);
   };
-
-const sessions =
-  sessionType === 'online'
-    ? onlineSessions
-    : sessionType === 'physical'
-    ? physicalSessions
-    : [...physicalSessions, ...onlineSessions];
-
-
-  });
 
   if (loading) return <p>Loading sessions...</p>;
 
   return (
     <div className="space-y-4">
-      {/* Session Type Filter */}
+      
       <div className="flex gap-2 mb-4">
         <button
           onClick={() => setSessionType('all')}
-          className={`px-4 py-2 rounded-xl transition-all duration-200 ${
+          className={`px-4 cursor-pointer py-2 rounded-xl transition-all duration-200 ${
             sessionType === 'all'
               ? 'bg-gradient-to-r from-blue-600 to-purple-700 text-white'
               : 'bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-blue-500'
@@ -82,28 +95,28 @@ const sessions =
         </button>
         <button
           onClick={() => setSessionType('online')}
-          className={`px-4 py-2 rounded-xl transition-all duration-200 ${
+          className={`px-4 py-2 cursor-pointer rounded-xl transition-all duration-200 ${
             sessionType === 'online'
               ? 'bg-gradient-to-r from-green-600 to-blue-700 text-white'
               : 'bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-green-500'
           }`}
         >
-          Online
+          Online ({onlineSessions.length})
         </button>
         <button
           onClick={() => setSessionType('physical')}
-          className={`px-4 py-2 rounded-xl transition-all duration-200 ${
+          className={`px-4 py-2 rounded-xl cursor-pointer transition-all duration-200 ${
             sessionType === 'physical'
               ? 'bg-gradient-to-r from-orange-600 to-red-700 text-white'
               : 'bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-orange-500'
           }`}
         >
-          Physical
+          Physical ({physicalSessions.length})
         </button>
       </div>
 
       <div className="grid grid-cols-1 gap-4">
-        {filteredSessions.slice().reverse().map((session, index) => {
+        {sessions.slice().reverse().map((session, index) => {
           const isJoined = joinedSessions.includes(session._id);
           const isOnline = isSessionOnline(session);
 
@@ -128,7 +141,7 @@ const sessions =
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        {session.groupName}
+                        {session.groupName || session.sessionTitle}
                       </h3>
                       {isOnline && (
                         <span className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-1 rounded-full text-xs font-medium">
@@ -266,7 +279,7 @@ const sessions =
         })}
       </div>
 
-      {filteredSessions.length === 0 && (
+      {sessions.length === 0 && (
         <div className="text-center py-8">
           <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
             <Calendar className="text-gray-400" size={24} />
