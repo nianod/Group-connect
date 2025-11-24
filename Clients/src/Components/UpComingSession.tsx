@@ -6,34 +6,33 @@ import type { UpcomingSession } from '../Types/group';
 const UpcomingSessions = () => {
   const [sessions, setSessions] = useState<UpcomingSession[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [joinedSessions, setJoinedSessions] = useState<string[]>([]);  
-  const [sessionType, setSessionType] = useState<'all' | 'online' | 'physical'>('all');
+const [physicalSessions, setPhysicalSessions] = useState<UpcomingSession[]>([]);
+const [onlineSessions, setOnlineSessions] = useState<UpcomingSession[]>([]);
 
-  const token = localStorage.getItem('token');
+const token = localStorage.getItem("token")
 
-  useEffect(() => {
-    const fetchSessions = async () => {
-      try {
-        const groups = import.meta.env.VITE_BACKEND_URL;
-        const res = await axios.get(`${groups}/groups`, {
-          headers: { 
-            Authorization: `Bearer ${token}`
-          }
-        });
-        setSessions(res.data.groups);
-      } catch (err) {
-        console.error('Error fetching sessions', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchSessions();
-  }, []);
-
-  const handleJoin = (id: string) => {
-    setJoinedSessions((prev) => [...prev, id]);
+useEffect(() => {
+  const fetchPhysical = async () => {
+    const groups = import.meta.env.VITE_BACKEND_URL;
+    const res = await axios.get(`${groups}/groups`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setPhysicalSessions(res.data.groups);
   };
 
+  const fetchOnline = async () => {
+    const groups = import.meta.env.VITE_BACKEND_URL;
+    const res = await axios.get(`${groups}/online`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setOnlineSessions(res.data.online);
+  };
+
+  Promise.all([fetchPhysical(), fetchOnline()]).finally(() => setLoading(false));
+}, []);
+
+
+ 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       weekday: 'short',
@@ -50,22 +49,30 @@ const UpcomingSessions = () => {
     });
   };
 
-   const filteredSessions = sessions.filter(session => {
-    if (sessionType === 'all') return true;
-    if (sessionType === 'online') return session.isOnline || session.meetingLink;
-    if (sessionType === 'physical') return !session.isOnline && !session.meetingLink;
-    return true;
+  // Helper function to check if session is online
+  const isSessionOnline = (session: UpcomingSession): boolean => {
+    return !!(session.isOnline || session.meetingLink || session.meetingPlatform);
+  };
+
+const sessions =
+  sessionType === 'online'
+    ? onlineSessions
+    : sessionType === 'physical'
+    ? physicalSessions
+    : [...physicalSessions, ...onlineSessions];
+
+
   });
 
   if (loading) return <p>Loading sessions...</p>;
 
   return (
     <div className="space-y-4">
-       
+      {/* Session Type Filter */}
       <div className="flex gap-2 mb-4">
         <button
           onClick={() => setSessionType('all')}
-          className={`px-4 py-2 cursor-pointer rounded-xl transition-all duration-200 ${
+          className={`px-4 py-2 rounded-xl transition-all duration-200 ${
             sessionType === 'all'
               ? 'bg-gradient-to-r from-blue-600 to-purple-700 text-white'
               : 'bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-blue-500'
@@ -75,7 +82,7 @@ const UpcomingSessions = () => {
         </button>
         <button
           onClick={() => setSessionType('online')}
-          className={`px-4 cursor-pointer py-2 rounded-xl transition-all duration-200 ${
+          className={`px-4 py-2 rounded-xl transition-all duration-200 ${
             sessionType === 'online'
               ? 'bg-gradient-to-r from-green-600 to-blue-700 text-white'
               : 'bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-green-500'
@@ -85,7 +92,7 @@ const UpcomingSessions = () => {
         </button>
         <button
           onClick={() => setSessionType('physical')}
-          className={`px-4 cursor-pointer py-2 rounded-xl transition-all duration-200 ${
+          className={`px-4 py-2 rounded-xl transition-all duration-200 ${
             sessionType === 'physical'
               ? 'bg-gradient-to-r from-orange-600 to-red-700 text-white'
               : 'bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-orange-500'
@@ -98,7 +105,7 @@ const UpcomingSessions = () => {
       <div className="grid grid-cols-1 gap-4">
         {filteredSessions.slice().reverse().map((session, index) => {
           const isJoined = joinedSessions.includes(session._id);
-          const isOnline = session.isOnline || session.meetingLink;
+          const isOnline = isSessionOnline(session);
 
           return (
             <div
@@ -147,7 +154,8 @@ const UpcomingSessions = () => {
 
               <div className="flex items-center justify-between mt-4">
                 <div className="flex flex-col gap-3">
-                   <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
+                  {/* First row - Common details */}
+                  <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
                     <div className="flex items-center gap-2">
                       <Users size={16} />
                       <span>1/ {session.maxMembers}</span>
@@ -173,7 +181,7 @@ const UpcomingSessions = () => {
                     )}
                   </div>
 
-           
+                  {/* Second row - Conditional details */}
                   <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
                     {isOnline ? (
                       <>
@@ -188,9 +196,20 @@ const UpcomingSessions = () => {
                         {session.meetingLink && (
                           <div className="flex items-center gap-2">
                             <Link size={16} />
-                            <span className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">
+                            <a 
+                              href={session.meetingLink} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                            >
                               Join Link
-                            </span>
+                            </a>
+                          </div>
+                        )}
+                        {session.duration && (
+                          <div className="flex items-center gap-2">
+                            <Clock size={16} />
+                            <span>{session.duration}</span>
                           </div>
                         )}
                       </>
