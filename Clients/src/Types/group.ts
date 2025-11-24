@@ -30,6 +30,7 @@ export interface UpcomingSession  {
   max_members: number;
   skill_level: string;
   description?: string;
+  
 };
 
 export interface User {
