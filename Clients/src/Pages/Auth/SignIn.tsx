@@ -41,11 +41,11 @@ const SignIn = ({ heading = "Welcome Back" }: SignIn2Props) => {
         console.log("here's you token", token)
         navigate("/home");
       } else {
-        setError(response.data.error || "Login Failed")
+        setError(response.data.error || "Invalid email or password. Please try again.")
         console.error(error)
       }
     } catch (err) {
-      setError("Invalid email or password. Please try again.")
+      setError("Login Failed")
     } finally {
       setLoading(false)
     }

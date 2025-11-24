@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+
+
+import { useState } from 'react';
 import { X, Loader2, Video, Calendar, Clock, Users, Link, BookOpen, Globe } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -282,3 +284,4 @@ const OnlineSession: React.FC<OnlineSessionProps> = ({ onlineSession, setOnlineS
 }
 
 export default OnlineSession
+
