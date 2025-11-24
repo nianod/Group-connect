@@ -5,10 +5,14 @@ export interface UpcomingSession {
   subject: string;
   date: string;
   time: string;
-  duration: string;
   members: number;
   maxMembers: number;
   skillLevel: string;
+
+  isOnline?: boolean;
+  meetingLink?: string;
+  meetingPlatform?: string;
+  duration?: string;
 }
 
 export interface PastGroup {
@@ -30,7 +34,7 @@ export interface UpcomingSession  {
   max_members: number;
   skill_level: string;
   description?: string;
-  
+
 };
 
 export interface User {
