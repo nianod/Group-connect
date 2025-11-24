@@ -8,7 +8,7 @@ export interface UpcomingSession {
   members: number;
   maxMembers: number;
   skillLevel: string;
-
+  sessionTitle: string;
   isOnline?: boolean;
   meetingLink?: string;
   meetingPlatform?: string;
