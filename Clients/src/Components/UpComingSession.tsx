@@ -8,7 +8,8 @@ const UpcomingSessions = () => {
   const [physicalSessions, setPhysicalSessions] = useState<UpcomingSession[]>([]);
   const [onlineSessions, setOnlineSessions] = useState<UpcomingSession[]>([]);
   const [joinedSessions, setJoinedSessions] = useState<string[]>([]);
-  const [sessionType, setSessionType] = useState<'all' | 'online' | 'physical'>('all');
+  const [sessionType, setSessionType] = useState<'all' | 'online' | 'physical'>('all')
+  const [searchGroups, setSearchGroups ]= useState<string>("")
 
   const token = localStorage.getItem('token');
 
@@ -65,6 +66,8 @@ const UpcomingSessions = () => {
 
   const renderPhysicalSession = (session: UpcomingSession) => {
     const isJoined = joinedSessions.includes(session._id);
+
+    const filteredGroups
 
     return (
       <div
