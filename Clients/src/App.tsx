@@ -1,4 +1,4 @@
-const MAINTENANCE = true;
+const MAINTENANCE = false;
 
 
 import Landing from "./Pages/Landing"
