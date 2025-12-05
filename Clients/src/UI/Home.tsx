@@ -6,10 +6,12 @@ import { useState } from 'react';
 import CreateGroup from '../Components/CreateGroup';
 import UpcomingSessions from '../Components/UpComingSession';
 import OnlineSession from '../Components/OnlineSession';
+import NoteForm from '../Components/NoteForm';
 
 const Dashboard = () => {
   const [post, setPost] = useState<boolean>(false)
   const [onlineSession, setOnlineSession] = useState<boolean>(false) 
+  const [notes, setNotes] = useState <boolean>(false)
 
   const handleCreateGroup = () => {
     setPost(true);
@@ -19,12 +21,17 @@ const Dashboard = () => {
     setOnlineSession(true)
   }
 
+  const handleCreateNOtes = () => {
+    setNotes(true)
+  }
+
+
   return (
     <div className="min-h-screen mt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
       <MiniHeader />
     
       <div className="max-w-7xl mx-auto px-6 py-8">
-        <QuickActions onCreateGroup={handleCreateGroup} onCreateOnlineSession={handleCreateOnlineSession} />
+        <QuickActions onCreateGroup={handleCreateGroup} onCreateOnlineSession={handleCreateOnlineSession} onCreateNote={handleCreateNOtes} />
          
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -128,6 +135,15 @@ const Dashboard = () => {
       </div>
       <CreateGroup post={post} setPost={setPost} />
       <OnlineSession onlineSession={onlineSession} setOnlineSession={setOnlineSession} />
+     <NoteForm
+  notes={notes}
+  setNotes={setNotes}
+  isOpen={notes}     
+  onClose={() => setNotes(false)}
+  onSubmit={(data) => console.log("SUBMITTED: ", data)}
+  loading={false}
+/>
+
     </div>
   );
 };

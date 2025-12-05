@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { BookOpen, Plus, Search, Filter, FileText, Users, Download, Share2, MoreVertical, Folder} from 'lucide-react';
 import type { Note } from '../Types/group';
 
-const Notes = () => {
-  const [notes] = useState<Note[]>([
+const Notes =() => {
+  const [Createnotes] = useState<Note[]>([
 
     {
       id: '1',
@@ -36,7 +36,7 @@ const Notes = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredNotes = notes.filter(note =>
+  const filteredNotes = Createnotes.filter(note =>
     note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     note.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
     note.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
