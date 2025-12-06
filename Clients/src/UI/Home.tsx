@@ -7,33 +7,45 @@ import CreateGroup from '../Components/CreateGroup';
 import UpcomingSessions from '../Components/UpComingSession';
 import OnlineSession from '../Components/OnlineSession';
 import NoteForm from '../Components/NoteForm';
+import Notes from './Notes';
 
 const Dashboard = () => {
-  const [post, setPost] = useState<boolean>(false)
-  const [onlineSession, setOnlineSession] = useState<boolean>(false) 
-  const [notes, setNotes] = useState <boolean>(false)
+   const [showCreateGroup, setShowCreateGroup] = useState(false);
+  const [showOnlineSession, setShowOnlineSession] = useState(false);
+  const [showNotes, setShowNotes] = useState(false);
+  const [showNoteForm, setShowNoteForm] = useState(false);
 
   const handleCreateGroup = () => {
-    setPost(true);
+    setShowCreateGroup(true);
   };
 
   const handleCreateOnlineSession = () => {
-    setOnlineSession(true)
-  }
+    setShowOnlineSession(true);
+  };
 
-  const handleCreateNOtes = () => {
-    setNotes(true)
-  }
+  const handleOpenNotes = () => {
+    setShowNotes(true);
+  };
 
+  const handleCreateNote = () => {
+    setShowNoteForm(true);
+  };
+
+  const handleCloseNotes = () => {
+    setShowNotes(false);
+  };
 
   return (
     <div className="min-h-screen mt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
       <MiniHeader />
     
       <div className="max-w-7xl mx-auto px-6 py-8">
-        <QuickActions onCreateGroup={handleCreateGroup} onCreateOnlineSession={handleCreateOnlineSession} onCreateNote={handleCreateNOtes} />
+        <QuickActions 
+          onCreateGroup={handleCreateGroup} 
+          onCreateOnlineSession={handleCreateOnlineSession} 
+          onCreateNote={handleOpenNotes}
+        />
          
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <div className="flex items-center justify-between mb-6">
@@ -133,21 +145,25 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <CreateGroup post={post} setPost={setPost} />
-      <OnlineSession onlineSession={onlineSession} setOnlineSession={setOnlineSession} />
-     <NoteForm
-  notes={notes}
-  setNotes={setNotes}
-  isOpen={notes}     
-  onClose={() => setNotes(false)}
-  onSubmit={(data) => console.log("SUBMITTED: ", data)}
-  loading={false}
-/>
 
+       <CreateGroup post={showCreateGroup} setPost={setShowCreateGroup} />
+      <OnlineSession onlineSession={showOnlineSession} setOnlineSession={setShowOnlineSession} />
+      
+       {showNotes && (
+        <Notes onCreate={handleCreateNote} onClose={handleCloseNotes} />
+      )}
+       
+      <NoteForm
+        isOpen={showNoteForm}     
+        onClose={() => setShowNoteForm(false)}
+        onSubmit={(data) => {
+          console.log("SUBMITTED: ", data);
+          setShowNoteForm(false);
+        }}
+        loading={false}
+      />
     </div>
   );
 };
 
 export default Dashboard;
-
-

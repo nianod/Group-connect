@@ -11,7 +11,7 @@ const QuickActions = ({ onCreateGroup, onCreateOnlineSession, onCreateNote }: Qu
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {quickActions.map((action, index) => {
+        {quickActions.map((action) => {
           const ActionIcon = action.icon;
          
           const isCreateGroup = action.label === "Create Group";
@@ -20,7 +20,7 @@ const QuickActions = ({ onCreateGroup, onCreateOnlineSession, onCreateNote }: Qu
 
           return isCreateGroup ? (
             <div
-              key={index}
+              key={action.label}
               onClick={onCreateGroup}
               className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-700 cursor-pointer"
             >
@@ -38,7 +38,7 @@ const QuickActions = ({ onCreateGroup, onCreateOnlineSession, onCreateNote }: Qu
             </div>
           ) : isOnlineSession ? (
             <div
-              key={index}
+              key={action.label}
               onClick={onCreateOnlineSession}
               className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-700 cursor-pointer"
             >
@@ -56,7 +56,7 @@ const QuickActions = ({ onCreateGroup, onCreateOnlineSession, onCreateNote }: Qu
             </div>
           ) : isCreateNote ?   (
                           <div
-              key={index}
+              key={action.label}
               onClick={onCreateNote}
               className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-700 cursor-pointer"
             >
@@ -74,7 +74,7 @@ const QuickActions = ({ onCreateGroup, onCreateOnlineSession, onCreateNote }: Qu
             </div>
           ) : (
                       <Link
-              key={index}
+              key={action.label}
               to={action.link}
               className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-700 cursor-pointer"
             >
