@@ -1,6 +1,5 @@
 const MAINTENANCE = false;
 
-
 import Landing from "./Pages/Landing"
 import Layout from "./Components/Layout/Layout"
 import Connect from "./Components/Connect"
@@ -16,6 +15,7 @@ import Notes from "./UI/Notes"
 import PageTrackerWrapper from "./PageTrackWrapper"
 import ForgotPassword from "./Pages/Auth/ResetPassword"
 import { Toaster } from "react-hot-toast"
+
 
 const App = () => {
   useEffect(() => {
@@ -48,7 +48,7 @@ if (MAINTENANCE) {
             <Route path="/home" element={<Home />} />
             <Route path="reset" element={<ForgotPassword />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="notes" element={<Notes />} />
+            <Route path="/notes" element={<Notes />} />
           </Route>
         </Routes>
       </Router>

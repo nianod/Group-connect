@@ -10,7 +10,8 @@ import NoteForm from '../Components/NoteForm';
 import Notes from './Notes';
 
 const Dashboard = () => {
-   const [showCreateGroup, setShowCreateGroup] = useState(false);
+
+  const [showCreateGroup, setShowCreateGroup] = useState(false);
   const [showOnlineSession, setShowOnlineSession] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
   const [showNoteForm, setShowNoteForm] = useState(false);
@@ -146,22 +147,31 @@ const Dashboard = () => {
         </div>
       </div>
 
-       <CreateGroup post={showCreateGroup} setPost={setShowCreateGroup} />
-      <OnlineSession onlineSession={showOnlineSession} setOnlineSession={setShowOnlineSession} />
       
-       {showNotes && (
+      {showCreateGroup && (
+        <CreateGroup post={showCreateGroup} setPost={setShowCreateGroup} />
+      )}
+      
+      {showOnlineSession && (
+        <OnlineSession onlineSession={showOnlineSession} setOnlineSession={setShowOnlineSession} />
+      )}
+      
+      
+      {showNotes && (
         <Notes onCreate={handleCreateNote} onClose={handleCloseNotes} />
       )}
        
-      <NoteForm
-        isOpen={showNoteForm}     
-        onClose={() => setShowNoteForm(false)}
-        onSubmit={(data) => {
-          console.log("SUBMITTED: ", data);
-          setShowNoteForm(false);
-        }}
-        loading={false}
-      />
+      {showNoteForm && (
+        <NoteForm
+          isOpen={showNoteForm}     
+          onClose={() => setShowNoteForm(false)}
+          onSubmit={(data) => {
+            console.log("SUBMITTED: ", data);
+            setShowNoteForm(false);
+          }}
+          loading={false}
+        />
+      )}
     </div>
   );
 };
