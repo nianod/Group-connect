@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { X, FileText } from "lucide-react";
+import type { NoteFormData } from "../Types/group";
 
 type NoteFormProps = {
   isOpen: boolean;
@@ -8,19 +9,9 @@ type NoteFormProps = {
   loading?: boolean;
 };
 
-interface NoteFormData {
-  title: string;
-  content: string;
-  subject: string;
-  tags: string[];
-}
 
-const NoteForm: React.FC<NoteFormProps> = ({
-  isOpen,
-  onClose,
-  onSubmit,
-  loading = false,
-}) => {
+
+const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading = false}) => {
 
   const [formData, setFormData] = useState<NoteFormData>({
     title: "",

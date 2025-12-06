@@ -46,6 +46,13 @@ export interface User {
   avatar?: string | null;
 }
 
+export interface NoteFormData {
+  title: string;
+  content: string;
+  subject: string;
+  tags: string[];
+}
+
 export interface Note {
   id: string;
   title: string;
