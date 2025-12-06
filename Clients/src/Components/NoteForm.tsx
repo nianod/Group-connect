@@ -1,15 +1,11 @@
-const onfix = true
-
 import React, { useState } from "react";
-import { X, FileText, BookOpen, Tag, Save, Loader2 } from "lucide-react";
+import { X, FileText } from "lucide-react";
 
 type NoteFormProps = {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (noteData: NoteFormData) => void;
   loading?: boolean;
-  notes: boolean;
-  setNotes: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 interface NoteFormData {
@@ -20,18 +16,17 @@ interface NoteFormData {
 }
 
 const NoteForm: React.FC<NoteFormProps> = ({
-  notes,
-  setNotes,
   isOpen,
   onClose,
   onSubmit,
   loading = false,
 }) => {
+
   const [formData, setFormData] = useState<NoteFormData>({
     title: "",
     content: "",
     subject: "",
-    tags: [],
+    tags: []
   });
 
   const [currentTag, setCurrentTag] = useState("");
@@ -49,21 +44,14 @@ const NoteForm: React.FC<NoteFormProps> = ({
     "Arts & Humanities",
   ];
 
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<any>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleAddTag = () => {
     if (currentTag.trim() && !formData.tags.includes(currentTag.trim())) {
-      setFormData((prev) => ({
+      setFormData(prev => ({
         ...prev,
         tags: [...prev.tags, currentTag.trim()],
       }));
@@ -71,10 +59,10 @@ const NoteForm: React.FC<NoteFormProps> = ({
     }
   };
 
-  const handleRemoveTag = (tagToRemove: string) => {
-    setFormData((prev) => ({
+  const handleRemoveTag = (tag: string) => {
+    setFormData(prev => ({
       ...prev,
-      tags: prev.tags.filter((tag) => tag !== tagToRemove),
+      tags: prev.tags.filter(t => t !== tag),
     }));
   };
 
@@ -82,50 +70,39 @@ const NoteForm: React.FC<NoteFormProps> = ({
     e.preventDefault();
     onSubmit(formData);
 
-    // Reset after submit
+    // Reset form
     setFormData({
       title: "",
       content: "",
       subject: "",
-      tags: [],
+      tags: []
     });
+    onClose();
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && e.currentTarget.tagName !== 'TEXTAREA') {
+    if (e.key === "Enter" && e.currentTarget.tagName !== "TEXTAREA") {
       e.preventDefault();
       handleAddTag();
     }
   };
 
-  // Close modal shortcut
-  const closeForm = () => {
-    setNotes(false);
-    onClose();
-  };
+  if (!isOpen) return null;
 
-  // if (!isOpen) return null;
-if(onfix) {
-  return (
-    <div>Page currently under MAINTENANCE</div>
-  )
-}
   return (
     <>
- 
-      <div 
+      <div
         className="fixed inset-0 z-[9998] backdrop-blur-sm bg-black/50"
-        onClick={closeForm}
+        onClick={onClose}
       ></div>
-      
-      
+
       <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-        <div 
+        <div
           className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full max-w-2xl max-h-[90vh] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
         >
-        
-          <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-6">
+          {/* HEADER */}
+          <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-6 z-10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-r from-orange-600 to-red-700 rounded-xl flex items-center justify-center">
@@ -138,7 +115,7 @@ if(onfix) {
               </div>
               <button
                 className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
-                onClick={closeForm}
+                onClick={onClose}
                 disabled={loading}
               >
                 <X className="text-gray-600 dark:text-gray-300" size={20} />
@@ -146,13 +123,12 @@ if(onfix) {
             </div>
           </div>
 
-          
+          {/* FORM */}
           <form onSubmit={handleSubmit} className="p-6 space-y-6">
-         
+
+            {/* TITLE */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Note Title *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Note Title *</label>
               <input
                 type="text"
                 name="title"
@@ -160,40 +136,32 @@ if(onfix) {
                 onChange={handleInputChange}
                 required
                 disabled={loading}
-                className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                placeholder="e.g., Data Structures Summary, Calculus Formulas..."
+                placeholder="e.g., Data Structures Summary"
+                className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
 
-           
+            {/* SUBJECT */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                <BookOpen size={16} className="inline mr-1" />
-                Subject *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Subject *</label>
               <select
                 name="subject"
                 value={formData.subject}
                 onChange={handleInputChange}
                 required
                 disabled={loading}
-                className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500"
               >
                 <option value="">Select a subject</option>
-                {subjects.map(subject => (
-                  <option key={subject} value={subject}>
-                    {subject}
-                  </option>
+                {subjects.map((s) => (
+                  <option key={s} value={s}>{s}</option>
                 ))}
-                <option value="other">Other</option>
               </select>
             </div>
 
-             
+            {/* CONTENT */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Content *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Content *</label>
               <textarea
                 name="content"
                 value={formData.content}
@@ -201,17 +169,15 @@ if(onfix) {
                 required
                 rows={6}
                 disabled={loading}
-                className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                placeholder="Start typing your notes here... You can add formulas, code snippets, diagrams descriptions, etc."
+                className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500"
+                placeholder="Start typing your notes..."
               />
             </div>
 
-      
+            {/* TAGS */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                <Tag size={16} className="inline mr-1" />
-                Tags
-              </label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tags</label>
+
               <div className="flex gap-2 mb-3">
                 <input
                   type="text"
@@ -219,30 +185,27 @@ if(onfix) {
                   onChange={(e) => setCurrentTag(e.target.value)}
                   onKeyPress={handleKeyPress}
                   disabled={loading}
-                  placeholder="Add tags (press Enter)"
-                  className="flex-1 px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  placeholder="Add tags"
+                  className="flex-1 px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
                 <button
                   type="button"
                   onClick={handleAddTag}
                   disabled={loading || !currentTag.trim()}
-                  className="px-4 bg-gradient-to-r from-orange-600 to-red-700 text-white rounded-xl hover:from-orange-700 hover:to-red-800 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 bg-orange-600 text-white rounded-xl hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Add
                 </button>
               </div>
+
               <div className="flex flex-wrap gap-2">
-                {formData.tags.map(tag => (
-                  <span
-                    key={tag}
-                    className="inline-flex items-center gap-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 px-3 py-1 rounded-full text-sm"
-                  >
+                {formData.tags.map((tag) => (
+                  <span key={tag} className="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 rounded-full flex items-center gap-1 text-sm">
                     {tag}
-                    <button
-                      type="button"
+                    <button 
+                      type="button" 
                       onClick={() => handleRemoveTag(tag)}
-                      disabled={loading}
-                      className="hover:text-orange-900 dark:hover:text-orange-100 disabled:opacity-50"
+                      className="hover:text-orange-900 dark:hover:text-orange-100"
                     >
                       <X size={14} />
                     </button>
@@ -251,36 +214,14 @@ if(onfix) {
               </div>
             </div>
 
-       
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
-              <h4 className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">
-                Formatting Tips:
-              </h4>
-              <ul className="text-sm text-blue-600 dark:text-blue-400 space-y-1">
-                <li>• Use **bold** for important terms</li>
-                <li>• Use `code` for code snippets</li>
-                <li>• Use bullet points for lists</li>
-                <li>• Add [links] for references</li>
-                <li>• Mark formulas with $$</li>
-              </ul>
-            </div>
- 
-            <div className="sticky bottom-0 bg-white dark:bg-gray-800 pt-4 pb-2 border-t border-gray-200 dark:border-gray-700">
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-gradient-to-r from-orange-600 to-red-700 text-white py-4 rounded-xl hover:from-orange-700 hover:to-red-800 transition-all duration-200 transform hover:scale-105 font-semibold text-lg disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
-              >
-                {loading ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <Loader2 className="animate-spin h-5 w-5 text-white" />
-                    Creating Note...
-                  </div>
-                ) : (
-                  'Create Note'
-                )}
-              </button>
-            </div>
+            {/* SUBMIT */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-orange-600 to-red-700 text-white py-4 rounded-xl hover:from-orange-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105 font-semibold"
+            >
+              {loading ? "Creating..." : "Create Note"}
+            </button>
           </form>
         </div>
       </div>
