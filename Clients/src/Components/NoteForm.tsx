@@ -19,8 +19,8 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
   });
 
   const [currentTag, setCurrentTag] = useState("");
-  const [processing,  setProssing] = useState<boolean>(false)
-  const [error, setLoading] = useState<string>('')
+  // const [processing,  setProssing] = useState<boolean>(false)
+  // const [error, setLoading] = useState<string>('')
 
 
   const subjects = [
