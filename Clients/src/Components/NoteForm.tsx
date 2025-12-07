@@ -9,8 +9,6 @@ type NoteFormProps = {
   loading?: boolean;
 };
 
-
-
 const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading = false}) => {
 
   const [formData, setFormData] = useState<NoteFormData>({
@@ -21,6 +19,9 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
   });
 
   const [currentTag, setCurrentTag] = useState("");
+  const [processing,  setProssing] = useState<boolean>(false)
+  const [error, setLoading] = useState<string>('')
+
 
   const subjects = [
     "Computer Science",
@@ -59,6 +60,7 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
     onSubmit(formData);
 
     // Reset form
