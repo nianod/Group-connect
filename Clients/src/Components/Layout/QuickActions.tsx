@@ -17,6 +17,7 @@ const QuickActions = ({ onCreateGroup, onCreateOnlineSession, onCreateNote }: Qu
           const isCreateGroup = action.label === "Create Group";
           const isCreateNote = action.label === "My Notes"
           const isOnlineSession = action.label === "Start An Online Session"
+          const isLearnWithAI = action.label === "Learn with AI"
 
           return isCreateGroup ? (
             <div
@@ -72,8 +73,26 @@ const QuickActions = ({ onCreateGroup, onCreateOnlineSession, onCreateNote }: Qu
                 {action.description}
               </p>
             </div>
-          ) : (
+          ) : isLearnWithAI ? (
                       <Link
+              key={action.label}
+              to={action.link}
+              className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-700 cursor-pointer"
+            >
+              <div
+                className={`w-12 h-12 bg-gradient-to-r ${action.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+              >
+                <ActionIcon className="text-white" size={24} />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                {action.label}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                {action.description}
+              </p>
+            </Link>
+          ) : (
+            <Link
               key={action.label}
               to={action.link}
               className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-700 cursor-pointer"

@@ -15,7 +15,7 @@ import Notes from "./UI/Notes"
 import PageTrackerWrapper from "./PageTrackWrapper"
 import ForgotPassword from "./Pages/Auth/ResetPassword"
 import { Toaster } from "react-hot-toast"
-
+import Ai from "./Pages/Ai";
 
 const App = () => {
   useEffect(() => {
@@ -48,8 +48,9 @@ if (MAINTENANCE) {
             <Route path="/home" element={<Home />} />
             <Route path="reset" element={<ForgotPassword />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/home/ai-center" element={<Ai />} />
             <Route path="/notes" element={<Notes />} />
-          </Route>
+           </Route>
         </Routes>
       </Router>
     </div>

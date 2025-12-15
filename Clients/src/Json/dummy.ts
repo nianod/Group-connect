@@ -45,7 +45,7 @@ export const quickActions = [
     label: "Learn with AI",
     description: "Learn along with AI",
     color: "from-green-600 to-blue-700",
-    link: "/AI center",
+    link: "ai-center",
   },
   {
     icon: BotIcon,
