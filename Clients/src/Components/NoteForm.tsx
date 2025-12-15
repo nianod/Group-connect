@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { X, FileText } from "lucide-react";
 import type { NoteFormData } from "../Types/group";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 type NoteFormProps = {
   isOpen: boolean;
@@ -19,8 +21,8 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
   });
 
   const [currentTag, setCurrentTag] = useState("");
-  // const [processing,  setProssing] = useState<boolean>(false)
-  // const [error, setLoading] = useState<string>('')
+  const [processing,  setProcessing] = useState<boolean>(false)
+  const [error, setError] = useState<string>('')
 
 
   const subjects = [
@@ -58,19 +60,41 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    onSubmit(formData);
+    setProcessing(true)
+    setError("")
 
+    try{
+      const token = localStorage.getItem('token')
+      const noteAPI = import.meta.env.VITE_BACKEND_API
+      const response = await axios.post(`${noteAPI}/note/create`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+
+      console.log("Note crerated succesfulyy", response.data)
+      toast.success("Note created successfully")
+      setFormData({
+        title: "",
+        content: "",
+        subject: "",
+        tags: []
+      });
+      onClose();
+    setProcessing(false)
+    } catch (err: any) {
+      setError("Something went wrong")
+      toast.error("Something went wrong")
+      setProcessing(false)
+    } finally{
+      setProcessing(false)
+    }
+    
+ 
     // Reset form
-    setFormData({
-      title: "",
-      content: "",
-      subject: "",
-      tags: []
-    });
-    onClose();
+    
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -207,13 +231,13 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
               </div>
             </div>
 
-            {/* SUBMIT */}
+          
             <button
               type="submit"
-              disabled={loading}
+              disabled={processing}
               className="w-full cursor-pointer bg-gradient-to-r from-orange-600 to-red-700 text-white py-4 rounded-xl hover:from-orange-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105 font-semibold"
             >
-              {loading ? "Creating..." : "Create Note"}
+              {processing ? "Creating..." : "Create Note"}
             </button>
           </form>
         </div>
