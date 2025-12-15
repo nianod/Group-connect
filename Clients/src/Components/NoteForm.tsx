@@ -3,6 +3,7 @@ import { X, FileText } from "lucide-react";
 import type { NoteFormData } from "../Types/group";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Loader2 } from "lucide-react";
 
 type NoteFormProps = {
   isOpen: boolean;
@@ -67,8 +68,8 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
 
     try{
       const token = localStorage.getItem('token')
-      const noteAPI = import.meta.env.VITE_BACKEND_API
-      const response = await axios.post(`${noteAPI}/note/create`, formData, {
+      const noteAPI = import.meta.env.VITE_BACKEND_URL
+      const response = await axios.post(`${noteAPI}/notes/note`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         }
@@ -230,15 +231,27 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
                 ))}
               </div>
             </div>
-
-          
-            <button
-              type="submit"
-              disabled={processing}
-              className="w-full cursor-pointer bg-gradient-to-r from-orange-600 to-red-700 text-white py-4 rounded-xl hover:from-orange-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105 font-semibold"
-            >
-              {processing ? "Creating..." : "Create Note"}
-            </button>
+                {error && (
+                  <span className="text-red-500 mt-2">{error}</span>
+                )}
+          <button
+                disabled={processing}
+                type="submit"
+                className={`w-full bg-gradient-to-r from-orange-600 to-red-700 text-white py-4 rounded-xl hover:from-blue-700 hover:to-purple-800 transition-all duration-200 transform font-semibold text-lg ${
+                  processing
+                    ? "cursor-not-allowed opacity-70"
+                    : "cursor-pointer hover:scale-105"
+                }`}
+              >
+                {loading ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <Loader2 className="animate-spin h-5 w-5 text-white" />
+                    Processing...
+                  </div>
+                ) : (
+                  "Create Note"
+                )}
+              </button>
           </form>
         </div>
       </div>
