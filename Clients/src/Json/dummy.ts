@@ -42,10 +42,10 @@ export const quickActions = [
   },
   {
     icon: Users,
-    label: "Find Groups",
-    description: "Discover study partners",
+    label: "Learn with AI",
+    description: "Learn along with AI",
     color: "from-green-600 to-blue-700",
-    link: "/groups",
+    link: "/AI center",
   },
   {
     icon: BotIcon,
