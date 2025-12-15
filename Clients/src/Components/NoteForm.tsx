@@ -8,11 +8,11 @@ import { Loader2 } from "lucide-react";
 type NoteFormProps = {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (noteData: NoteFormData) => void;
+  // onSubmit: (noteData: NoteFormData) => void;
   loading?: boolean;
 };
 
-const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading = false}) => {
+const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, loading = false}) => {
 
   const [formData, setFormData] = useState<NoteFormData>({
     title: "",
