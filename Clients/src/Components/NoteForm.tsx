@@ -8,11 +8,11 @@ import { Loader2 } from "lucide-react";
 type NoteFormProps = {
   isOpen: boolean;
   onClose: () => void;
-  // onSubmit: (noteData: NoteFormData) => void;
+  onSubmit: (noteData: NoteFormData) => void;
   loading?: boolean;
 };
 
-const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, loading = false}) => {
+const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading = false}) => {
 
   const [formData, setFormData] = useState<NoteFormData>({
     title: "",
@@ -83,6 +83,7 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, loading = false}) =
         subject: "",
         tags: []
       });
+      onSubmit(formData)
       onClose();
     setProcessing(false)
     } catch (err: any) {

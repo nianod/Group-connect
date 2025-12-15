@@ -3,7 +3,7 @@ import { BookOpen, Plus, Search, Filter, FileText, Users, Download, Share2, More
 import type { Note } from '../Types/group';
 
 interface NotesProps {
-  onCreate: () => void;
+  onCreate?: () => void;
   onClose?: () => void;
 }
  
