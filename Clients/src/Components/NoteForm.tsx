@@ -19,8 +19,8 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
   });
 
   const [currentTag, setCurrentTag] = useState("");
-  const [processing,  setProssing] = useState<boolean>(false)
-  const [error, setLoading] = useState<string>('')
+  // const [processing,  setProssing] = useState<boolean>(false)
+  // const [error, setLoading] = useState<string>('')
 
 
   const subjects = [
@@ -130,7 +130,7 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
                 required
                 disabled={loading}
                 placeholder="e.g., Data Structures Summary"
-                className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 placeholder:text-gray-400"
               />
             </div>
 
@@ -143,7 +143,7 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
                 onChange={handleInputChange}
                 required
                 disabled={loading}
-                className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 placeholder:text-gray-400"
               >
                 <option value="">Select a subject</option>
                 {subjects.map((s) => (
@@ -162,7 +162,7 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
                 required
                 rows={6}
                 disabled={loading}
-                className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 placeholder:text-gray-400"
                 placeholder="Start typing your notes..."
               />
             </div>
@@ -179,7 +179,7 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
                   onKeyPress={handleKeyPress}
                   disabled={loading}
                   placeholder="Add tags"
-                  className="flex-1 px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="flex-1 px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 placeholder:text-gray-400"
                 />
                 <button
                   type="button"
@@ -211,7 +211,7 @@ const NoteForm: React.FC<NoteFormProps> = ({isOpen, onClose, onSubmit, loading =
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-orange-600 to-red-700 text-white py-4 rounded-xl hover:from-orange-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105 font-semibold"
+              className="w-full cursor-pointer bg-gradient-to-r from-orange-600 to-red-700 text-white py-4 rounded-xl hover:from-orange-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105 font-semibold"
             >
               {loading ? "Creating..." : "Create Note"}
             </button>

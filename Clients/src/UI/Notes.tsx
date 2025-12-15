@@ -50,12 +50,10 @@ const Notes: React.FC<NotesProps> = ({ onCreate, onClose }) => {
 
   return (
     <>
-       
       <div
-        className="fixed inset-0 z-[9998] backdrop-blur-sm bg-black/50"
+        className="fixed inset-0 z-[9998] backdrop-blur-sm"
         onClick={onClose}
       ></div>
-
       
       <div className="fixed inset-0 z-[9999] overflow-y-auto">
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 py-8">
