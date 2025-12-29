@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BookOpen, Plus, Search, Filter, FileText, Users, Download, Share2, MoreVertical, Folder, X } from 'lucide-react';
 import type { Note } from '../Types/group';
+import axios from 'axios';
 
 interface NotesProps {
   onCreate?: () => void;
@@ -8,45 +9,58 @@ interface NotesProps {
 }
  
 const Notes: React.FC<NotesProps> = ({ onCreate, onClose }) => {
-  const [Createnotes] = useState<Note[]>([
-    {
-      id: '1',
-      title: 'Data Structures Summary',
-      content: 'Binary trees, graphs, and sorting algorithms...',
-      subject: 'Computer Science',
-      lastModified: '2 hours ago',
-      shared: true,
-      tags: ['algorithms', 'exam-prep']
-    },
-    {
-      id: '2',
-      title: 'Calculus Formulas',
-      content: 'Derivatives, integrals, and limits...',
-      subject: 'Mathematics',
-      lastModified: '1 day ago',
-      shared: false,
-      tags: ['formulas', 'midterm']
-    },
-    {
-      id: '3',
-      title: 'Organic Chemistry Reactions',
-      content: 'Important organic reactions and mechanisms...',
-      subject: 'Chemistry',
-      lastModified: '3 days ago',
-      shared: true,
-      tags: ['reactions', 'lab']
-    }
-  ]);
-
-  const [searchTerm, setSearchTerm] = useState('');
   
-  const filteredNotes = Createnotes.filter(note =>
-    note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    note.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    note.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+
+  const [searchTerm, setSearchTerm] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [notes, setNotes] = useState<Note[]>([])
+  const [error, setError] = useState('')
+  
+const filteredNotes = notes.filter(note =>
+  note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  note.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  note.tags?.some(tag =>
+    tag.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+)
+
+
+  const token = localStorage.getItem('token')
+const fetchNotes = async () => {
+  setLoading(true)
+  try {
+    const NoteAPI = import.meta.env.VITE_BACKEND_URL
+
+    const res = await axios.get(`${NoteAPI}/fetchNotes`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    setNotes(res.data)
+  } catch (err: any) {
+    setError(err.response?.data?.message || err.message)
+  } finally {
+    setLoading(false)
+  }
+}
+
+  useEffect(() => {
+    if(token) fetchNotes()
+  }, [token])
 
   const subjects = ['All Subjects', 'Computer Science', 'Mathematics', 'Chemistry', 'Physics'];
+
+   if(loading) return <div>Loading...</div>
+
+   if (error) {
+  return (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+      <p className="text-red-500">{error}</p>
+    </div>
+  )
+}
+
 
   return (
     <>
@@ -54,7 +68,7 @@ const Notes: React.FC<NotesProps> = ({ onCreate, onClose }) => {
         className="fixed inset-0 z-[9998] backdrop-blur-sm"
         onClick={onClose}
       ></div>
-      
+
       <div className="fixed inset-0 z-[9999] overflow-y-auto">
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 py-8">
           <div className="max-w-6xl mx-auto px-6">

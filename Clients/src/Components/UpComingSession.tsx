@@ -12,7 +12,7 @@ const UpcomingSessions = () => {
   // const [searchGroups, setSearchGroups ]= useState<string>("")
 
   const token = localStorage.getItem('token');
-
+ 
   useEffect(() => {
     const fetchPhysical = async () => {
       try {
