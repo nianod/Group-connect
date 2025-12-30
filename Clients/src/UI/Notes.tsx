@@ -9,47 +9,44 @@ interface NotesProps {
 }
  
 const Notes: React.FC<NotesProps> = ({ onCreate, onClose }) => {
-  
-
   const [searchTerm, setSearchTerm] = useState('')
   const [loading, setLoading] = useState(false)
   const [notes, setNotes] = useState<Note[]>([])
   const [error, setError] = useState('')
   
-const filteredNotes = notes.filter(note =>
-  note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  note.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  note.tags?.some(tag =>
-    tag.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredNotes = notes.filter(note =>
+    note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    note.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    note.tags?.some(tag =>
+      tag.toLowerCase().includes(searchTerm.toLowerCase())
+    )
   )
-)
-
 
   const token = localStorage.getItem('token')
-const fetchNotes = async () => {
-  setLoading(true)
-  setError('')
-  try {
-    const NoteAPI = import.meta.env.VITE_BACKEND_URL
-    const res = await axios.get(`${NoteAPI}/notes/`, {  
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    
-    console.log('API Response:', res.data)  
-    
-    const notesArray = Array.isArray(res.data.notes) ? res.data.notes : []
-    setNotes(notesArray)
-  } catch (err: any) {
-    console.error('Fetch error:', err) 
-    setError(err.response?.data?.message || err.message || 'Failed to fetch notes')
-    setNotes([]) 
-  } finally {
-    setLoading(false)
+  
+  const fetchNotes = async () => {
+    setLoading(true)
+    setError('')
+    try {
+      const NoteAPI = import.meta.env.VITE_BACKEND_URL
+      const res = await axios.get(`${NoteAPI}/notes/`, {  
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      
+      console.log('API Response:', res.data)  
+      
+      const notesArray = Array.isArray(res.data.notes) ? res.data.notes : []
+      setNotes(notesArray)
+    } catch (err: any) {
+      console.error('Fetch error:', err) 
+      setError(err.response?.data?.message || err.message || 'Failed to fetch notes')
+      setNotes([]) 
+    } finally {
+      setLoading(false)
+    }
   }
-}
-
 
   useEffect(() => {
     if(token) fetchNotes()
@@ -57,16 +54,28 @@ const fetchNotes = async () => {
 
   const subjects = ['All Subjects', 'Computer Science', 'Mathematics', 'Chemistry', 'Physics'];
 
-   if(loading) return <div>Loading...</div>
+   const handleNewNoteClick = () => {
+    console.log('New Note button clicked');
+    console.log('onCreate prop exists?', !!onCreate);
+    console.log('onCreate type:', typeof onCreate);
+    
+    if (onCreate) {
+      console.log('Calling onCreate...');
+      onCreate();
+    } else {
+      console.error('onCreate prop is not defined!');
+    }
+  };
 
-   if (error) {
-  return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center">
-      <p className="text-red-500">{error}</p>
-    </div>
-  )
-}
+  if(loading) return <div>Loading...</div>
 
+  if (error) {
+    return (
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+        <p className="text-red-500">{error}</p>
+      </div>
+    )
+  }
 
   return (
     <>
@@ -92,7 +101,7 @@ const fetchNotes = async () => {
               
               <div className="flex items-center gap-3">
                 <button 
-                  onClick={onCreate}
+                  onClick={handleNewNoteClick}
                   className="flex cursor-pointer items-center gap-2 bg-gradient-to-r from-orange-600 to-red-700 text-white px-6 py-3 rounded-xl hover:from-orange-700 hover:to-red-800 transition-all duration-200 transform hover:scale-105"
                 >
                   <Plus size={20} />
@@ -137,13 +146,13 @@ const fetchNotes = async () => {
                 </button>
               ))}
             </div>        
+            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredNotes.map((note) => (
                 <div
                   key={note.id}
                   className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-700"
                 >
-               
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1 line-clamp-1">
@@ -166,7 +175,6 @@ const fetchNotes = async () => {
                     </button>
                   </div>
 
-        
                   <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
                     {note.content}
                   </p>
@@ -182,7 +190,6 @@ const fetchNotes = async () => {
                     ))}
                   </div>
 
-           
                   <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
                     <span className="text-sm text-gray-500 dark:text-gray-400">
                       {note.lastModified}
@@ -200,7 +207,6 @@ const fetchNotes = async () => {
               ))}
             </div>
 
-       
             {filteredNotes.length === 0 && (
               <div className="text-center py-12">
                 <FileText className="mx-auto text-gray-400 mb-4" size={48} />
@@ -220,6 +226,3 @@ const fetchNotes = async () => {
 };
 
 export default Notes;
-
-
-
