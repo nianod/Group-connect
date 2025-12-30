@@ -28,22 +28,28 @@ const filteredNotes = notes.filter(note =>
   const token = localStorage.getItem('token')
 const fetchNotes = async () => {
   setLoading(true)
+  setError('')
   try {
     const NoteAPI = import.meta.env.VITE_BACKEND_URL
-
-    const res = await axios.get(`${NoteAPI}/fetchNotes`, {
+    const res = await axios.get(`${NoteAPI}/notes/`, {  
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
-
-    setNotes(res.data)
+    
+    console.log('API Response:', res.data)  
+    
+    const notesArray = Array.isArray(res.data.notes) ? res.data.notes : []
+    setNotes(notesArray)
   } catch (err: any) {
-    setError(err.response?.data?.message || err.message)
+    console.error('Fetch error:', err) 
+    setError(err.response?.data?.message || err.message || 'Failed to fetch notes')
+    setNotes([]) 
   } finally {
     setLoading(false)
   }
 }
+
 
   useEffect(() => {
     if(token) fetchNotes()
